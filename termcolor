@@ -1,3 +1,40 @@
 https://www.cnblogs.com/yrxns/p/7193062.html
 python的termcolor模块
 termcolor是一个python包，可以改变控制台输出的颜色，支持各种terminal（WINDOWS的cmd.exe除外）。
+
+它支持下列的文字颜色：
+
+grey, red, green, yellow, blue, magenta, cyan, white
+
+ 
+
+支持下列的背景高亮：
+
+on_grey, on_red, on_green, on_yellow, on_blue, on_magenta, on_cyan, on_white
+
+ 
+
+支持下列属性：
+
+bold, dark, underline, blink, reverse, concealed
+
+  
+
+示例代码：
+复制代码
+
+import sys  
+from termcolor import colored, cprint  
+  
+text = colored('Hello, World!', 'red', attrs=['reverse', 'blink'])  
+print(text)  
+cprint('Hello, World!', 'green', 'on_red')  
+  
+print_red_on_cyan = lambda x: cprint(x, 'red', 'on_cyan')  
+print_red_on_cyan('Hello, World!')  
+print_red_on_cyan('Hello, Universe!')  
+  
+for i in range(10):  
+    cprint(i, 'magenta', end=' ')  
+  
+cprint("Attention!", 'red', attrs=['bold'], file=sys.stderr)
