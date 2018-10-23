@@ -1,0 +1,3 @@
+https://www.cnblogs.com/yrxns/p/7193062.html
+python的termcolor模块
+termcolor是一个python包，可以改变控制台输出的颜色，支持各种terminal（WINDOWS的cmd.exe除外）。
