@@ -1,0 +1,156 @@
+https://blog.csdn.net/feeltouch/article/details/49404671
+
+python strip()函数 介绍
+
+函数原型
+
+声明：s为字符串，rm为要删除的字符序列
+
+s.strip(rm)        删除s字符串中开头、结尾处，位于 rm删除序列的字符
+
+s.lstrip(rm)       删除s字符串中开头处，位于 rm删除序列的字符
+
+s.rstrip(rm)      删除s字符串中结尾处，位于 rm删除序列的字符
+
+注意：
+
+1. 当rm为空时，默认删除空白符（包括'\n', '\r',  '\t',  ' ')
+
+例如：
+
+ 
+复制代码 代码如下:
+
+>>> a = '     123'
+>>> a.strip()
+'123'
+>>> a='\t\tabc'
+'abc'
+>>> a = 'sdff\r\n'
+>>> a.strip()
+'sdff'
+
+ 
+
+2.这里的rm删除序列是只要边（开头或结尾）上的字符在删除序列内，就删除掉。
+
+例如 ：
+
+ 
+复制代码 代码如下:
+
+>>> a = '123abc'
+>>> a.strip('21')
+'3abc'   结果是一样的
+>>> a.strip('12')
+'3abc'
+=======================================
+Split函数的用法总结
+Python中没有字符类型的说法，只有字符串，这里所说的字符就是只包含一个字符的字符串！！！
+这里这样写的原因只是为了方便理解，仅此而已。
+
+1.按某一个字符分割，如‘.’
+1
+	str = ('www.google.com')
+2
+	print str
+3
+	str_split = str.split('.')
+4
+	print str_split
+
+结果如下：
+
+
+
+2.按某一个字符分割，且分割n次。如按‘.’分割1次
+
+
+1
+	str = ('www.google.com')
+2
+	print str
+3
+	str_split = str.split('.'，1)
+4
+	print str_split
+结果如下：
+
+
+3.按某一字符串分割。如：‘||’
+
+
+1
+	str = ('WinXP||Win7||Win8||Win8.1')
+2
+	print str
+3
+	str_split = str.split('||')
+4
+	print str_split
+
+结果如下：
+
+
+4.按某一字符串分割，且分割n次。如：按‘||’分割2次
+
+
+1
+	str = ('WinXP||Win7||Win8||Win8.1')
+2
+	print str
+3
+	str_split = str.split('||',2)
+4
+	print str_split
+结果如下：
+
+
+5.按某一字符（或字符串）分割，且分割n次，并将分割的完成的字符串（或字符）赋给新的（n+1）个变量。（注：见开头说明）
+如：按‘.’分割字符，且分割1次，并将分割后的字符串赋给2个变量str1，str2
+
+
+1
+	url = ('www.google.com')
+2
+	str1, str2 = url.split('.', 1)
+3
+	print str1
+4
+	print str2
+结果如下：
+
+
+一个正则匹配的例子：
+
+>>> str="xxxxxxxxxxxx5 [50,0,50]>,xxxxxxxxxx"
+
+>>> lst = str.split("[")[1].split("]")[0].split(",")
+
+>>> print lst
+
+['50', '0', '50']
+
+分解如下
+
+>>> list =str.split("[") 按照左边分割
+
+>>> print list
+
+['xxxxxxxxxxxx5 ', '50,0,50]>,xxxxxxxxxx']
+
+>>> list =str.split("[")[1].split("]")  包含的再按右边分割
+
+再对所要的字符串按照分割副  存放在列表中
+
+>>> list
+
+['50,0,50', '>,xxxxxxxxxx']
+
+>>> str.split("[")[1].split("]")[0]
+
+'50,0,50'
+
+>>> str.split("[")[1].split("]")[0].split(",")
+
+['50', '0', '50']
