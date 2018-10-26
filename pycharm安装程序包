@@ -1,0 +1,51 @@
+File==>settings==>Project:***下 Project Interpreter ==>右边“+”(滚动条右边加号) ==>在搜索栏写入需要安装的包，
+选中待安装的包，点左下角Install Package，等待安装完成。
+注意：勾选右下角Specify version，选择需要安装的版本。如果跟系统安装版本不同可能会报错。
+
+查看版本
+打开终端，输入python 进入python 环境
+import tensorflow as tf  #导入tensorflow
+tf.__version__  #查看版本
+tf.__path__     #查看路径
+import scipy    #导入scipy
+print(scipy.version.version)  #查看版本
+下文中 python -c ××× 是在终端直接输入。在python环境中，可以按照上述进行变通。
+原文在这里
+
+    查看python版本
+    方法一：
+    python -V 注意：‘-V‘中‘V’为大写字母，只有一个‘-’
+    方法二：
+    python –version 注意：‘–version’中有两个‘-’
+    查看python安装位置
+    方法一：　
+    python -c “import sys; print sys.executable”
+    方法二：
+    python -c “import os; print os.sys.executable”
+    python -c “import os; path = os.sys.executable;folder=path[0 : path.rfind(os.sep)]; print folder”
+    查看Numpy版本
+    python -c “import numpy; print numpy.version.version”
+    或
+    python -c “import numpy; print numpy.version”
+
+    查看Numpy安装路径
+    python -c “import numpy; print numpy.file”
+
+    查看SciPy版本
+    python -c “import scipy; print scipy.version.version”
+    或
+    python -c “import scipy; print scipy.version”
+
+    查看SciPy安装路径
+    python -c “import scipy; print scipy.file”
+    查看Matplotlib版本
+    python -c “import matplotlib; print matplotlib.version.version”
+    或
+    python -c “import matplotlib; print matplotlib.version”
+    查看Matplotlib安装路径
+    python -c “import matplotlib; print matplotlib.file”
+--------------------- 
+作者：cookie_234 
+来源：CSDN 
+原文：https://blog.csdn.net/cookie_234/article/details/70312333 
+版权声明：本文为博主原创文章，转载请附上博文链接！
