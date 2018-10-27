@@ -1,0 +1,4 @@
+加入如下两行代码，问题解决，警告消失
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
