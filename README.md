@@ -1,7 +1,7 @@
 # Python-Learning
-##python学习网站  
+## python学习网站  
 https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html  
-##python 学习笔记  
+## python 学习笔记  
 1、Python:是一种广泛意义上的编程语言。它非常适合做交互式的工作，并且足够强大可做大型应用。  
 2、Numpy:是python的一个扩展，它定义了数组和矩阵，以及作用在它们上面的基本操作。  
 3、Scipy:是另一个python的扩展包。它利用numpy做更高级的数学，信号处理，优化，统计等等。  
