@@ -33,3 +33,4 @@ sess.run(d2)
        [[ 3,  6],
         [-3, -6],
         [ 0,  0]]], dtype=int32)
+sess.close()
