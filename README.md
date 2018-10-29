@@ -10,3 +10,4 @@
 ##### tf.ConfigProto()配置Session运行参数&&GPU设备指定.
 ##### a.strip().split(): strip()删除字符串a中开头和结尾指定字符，默认删除空格。split()按照给定的字符串分割字符串a。
 ##### tf.stack()和tf.unstack()的用法,tf.stack（）这是一个矩阵拼接的函数，tf.unstack（）则是一个矩阵分解的函数.
+##### tf.transpose 多维的矩阵转置
