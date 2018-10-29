@@ -1,4 +1,4 @@
-# Python-Learning
+# Python-Learning 
 python 学习笔记
 Python: 	是一种广泛意义上的编程语言。它非常适合做交互式的工作，并且足够强大可做大型应用。
 ##### Numpy: 	是python的一个扩展，它定义了数组和矩阵，以及作用在它们上面的基本操作。
