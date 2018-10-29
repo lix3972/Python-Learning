@@ -1,0 +1,26 @@
+https://blog.csdn.net/jasonzzj/article/details/60811035  
+TensorFlow中，想要维度增加一维，可以使用tf.expand_dims(input, dim, name=None)函数。当然，我们常用tf.reshape(input, shape=[])也可以达到相同效果，但是有些时候在构建图的过程中，placeholder没有被feed具体的值，这时就会包下面的错误：TypeError: Expected binary or unicode string, got 1
+在这种情况下，我们就可以考虑使用expand_dims来将维度加1。比如我自己代码中遇到的情况，在对图像维度降到二维做特定操作后，要还原成四维[batch, height, width, channels]，前后各增加一维。如果用reshape，则因为上述原因报错
+one_img2 = tf.reshape(one_img, shape=[1, one_img.get_shape()[0].value, one_img.get_shape()[1].value, 1])
+用下面的方法可以实现：
+
+one_img = tf.expand_dims(one_img, 0)
+one_img = tf.expand_dims(one_img, -1) #-1表示最后一维
+
+在最后，给出官方的例子和说明
+
+# 't' is a tensor of shape [2]
+shape(expand_dims(t, 0)) ==> [1, 2]
+shape(expand_dims(t, 1)) ==> [2, 1]
+shape(expand_dims(t, -1)) ==> [2, 1]
+
+# 't2' is a tensor of shape [2, 3, 5]
+shape(expand_dims(t2, 0)) ==> [1, 2, 3, 5]
+shape(expand_dims(t2, 2)) ==> [2, 3, 1, 5]
+shape(expand_dims(t2, 3)) ==> [2, 3, 5, 1]
+
+--------------------- 
+作者：jasonzzj 
+来源：CSDN 
+原文：https://blog.csdn.net/jasonzzj/article/details/60811035 
+版权声明：本文为博主原创文章，转载请附上博文链接！
