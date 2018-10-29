@@ -1,0 +1,64 @@
+https://blog.csdn.net/u012193416/article/details/77411535
+https://www.jianshu.com/p/25706575f8d4
+官方解释：https://tensorflow.google.cn/api_docs/python/tf/unstack
+import tensorflow as tf 
+a = tf.constant([1, 2, 3]) 
+b = tf.constant([4, 5, 6]) 
+c = tf.stack( [a,b], axis=0) 
+with tf.Session() as sess: 
+    print(sess.run(c))
+输出结果是：
+[[1 2 3]
+ [4 5 6]]
+ 
+d = tf.unstack(c, axis=0)
+e = tf.unstack(c, axis=1)
+with tf.Session() as sess:
+    print(sess.run(d))
+    print(sess.run(e))
+结果如下：
+[array([1, 2, 3]), array([4, 5, 6])]
+[array([1, 4]), array([2, 5]), array([3, 6])]
+======================================================
+tf.concat, tf.stack和tf.unstack的用法
+
+tf.concat相当于numpy中的np.concatenate函数，用于将两个张量在某一个维度(axis)合并起来，例如：
+
+a = tf.constant([[1,2,3],[3,4,5]]) # shape (2,3)
+b = tf.constant([[7,8,9],[10,11,12]]) # shape (2,3)
+ab1 = tf.concat([a,b], axis=0) # shape(4,3)
+ab2 = tf.concat([a,b], axis=1) # shape(2,6)
+
+tf.stack其作用类似于tf.concat，都是拼接两个张量，而不同之处在于，tf.concat拼接的是除了拼接维度axis外其他维度的shape完全相同的张量，并且产生的张量的阶数不会发生变化，而tf.stack则会在新的张量阶上拼接，产生的张量的阶数将会增加，例如：
+
+a = tf.constant([[1,2,3],[3,4,5]]) # shape (2,3)
+b = tf.constant([[7,8,9],[10,11,12]]) # shape (2,3)
+ab = tf.stack([a,b], axis=0) # shape (2,2,3)
+    
+改变参数axis为2，有：
+
+import tensorflow as tf
+a = tf.constant([[1,2,3],[3,4,5]]) # shape (2,3)
+b = tf.constant([[7,8,9],[10,11,12]]) # shape (2,3)
+ab = tf.stack([a,b], axis=2) # shape (2,3,2)
+
+所以axis是决定其层叠(stack)张量的维度方向的。
+
+而tf.unstack与tf.stack的操作相反，是将一个高阶数的张量在某个axis上分解为低阶数的张量，例如：
+
+a = tf.constant([[1,2,3],[3,4,5]]) # shape (2,3)
+b = tf.constant([[7,8,9],[10,11,12]]) # shape (2,3)
+ab = tf.stack([a,b], axis=0) # shape (2,2,3)
+
+a1 = tf.unstack(ab, axis=0)
+
+其a1的输出为
+
+[<tf.Tensor 'unstack_1:0' shape=(2, 3) dtype=int32>,
+ <tf.Tensor 'unstack_1:1' shape=(2, 3) dtype=int32>]
+
+--------------------- 
+作者：FesianXu 
+来源：CSDN 
+原文：https://blog.csdn.net/loseinvain/article/details/79638183 
+版权声明：本文为博主原创文章，转载请附上博文链接！
