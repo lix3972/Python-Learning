@@ -1,0 +1,32 @@
+https://www.cnblogs.com/liuchunxiao83/p/5298016.html
+
+使用assert断言是学习python一个非常好的习惯，python assert 断言句语格式及用法很简单。在没完善一个程序之前，我们不知道程序在哪里会出错，与其让它在运行最崩溃，不如在出现错误条件时就崩溃，这时候就需要assert断言的帮助。本文主要是讲assert断言的基础知识。
+python assert断言的作用
+
+python assert断言是声明其布尔值必须为真的判定，如果发生异常就说明表达示为假。可以理解assert断言语句为raise-if-not，用来测试表示式，其返回值为假，就会触发异常。
+assert断言语句的语法格式
+
+assert python 怎么用？
+expression assert 表达式
+
+下面做一些assert用法的语句供参考：
+assert 1==1
+assert 2+2==2*2
+assert len(['my boy',12])<10
+assert range(4)==[0,1,2,3]
+如何为assert断言语句添加异常参数
+
+assert的异常参数，其实就是在断言表达式后添加字符串信息，用来解释断言并更好的知道是哪里出了问题。格式如下：
+assert expression [, arguments]
+assert 表达式 [, 参数]
+
+assert len(lists) >=5,'列表元素个数小于5'
+
+assert 2==1,'2不等于1'
+
+写成括号形式：
+assert(1==3),'1!=3'
+返回：
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AssertionError: 1!=3
