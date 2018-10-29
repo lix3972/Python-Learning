@@ -1,0 +1,19 @@
+tile() 平铺之意，用于在同一维度上的复制,进行张量扩展
+有一个形状如[width, height]的张量，需要得到一个基于原张量的，形状如[batch_size,width,height]的张量，其中每一个batch的内容都和原张量一模一样。
+tf.tile(  
+    input,     #输入  
+    multiples,  #同一维度上复制的次数  
+    name=None  
+)
+例如：
+import tensorflow as tf
+a = tf.constant([[1,2]],name='a')
+b= tf.tile(a,[1,2])
+sess = tf.Session()
+print(sess.run(b)) #[[1 2 1 2]]
+--------------------
+b= tf.tile(a,[2,1])
+sess = tf.Session()
+print(sess.run(b)) 
+输出：[[1 2]
+      [1 2]]
