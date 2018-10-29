@@ -13,4 +13,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 9、a.strip().split(): strip()删除字符串a中开头和结尾指定字符，默认删除空格。split()按照给定的字符串分割字符串a。  
 10、tf.stack()和tf.unstack()的用法,tf.stack（）这是一个矩阵拼接的函数，tf.unstack（）则是一个矩阵分解的函数.  
 11、tf.transpose 多维的矩阵转置  
-12、assert断言语句，声明其布尔值必须为真的判定，如果发生异常就说明表达示为假。
+12、assert断言语句，声明其布尔值必须为真的判定，如果发生异常就说明表达示为假。  
+13、tile() 平铺之意，用于在同一维度上的复制,进行张量扩展
