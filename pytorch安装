@@ -1,0 +1,5 @@
+登录PyTorch官网：https://pytorch.org/ （上不去，就百度搜索pytorch官网，点进去就上去了。）
+点 Get Started>
+选择好对应环境版本，下面会提示安装命令。例如：ubuntu,python3.6,cuda9.0，conda安装命令如下：
+在终端输入： conda install pytorch torchvision -c pytorch
+安装完毕。
