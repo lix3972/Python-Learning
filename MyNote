@@ -1,4 +1,5 @@
 Python基础教程（第2版·修订版） Magnus Lie Hetland著，司维等译 人民邮电出版社
+第三版代码 https://github.com/apress/beginning-python-3ed
 1、基础知识
   1.1、数字后面加 L 是长整数，数值比较大。
   1.2、十六进制  0XAF  175;八进制  0o10  8 (八进制第二个是字母o);二进制 0B11 3;（首位数字是0）
