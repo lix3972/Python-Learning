@@ -1,3 +1,4 @@
+Python基础教程（第2版.修订版） Magnus Lie Hetland著，司维等译 人民邮电出版社
 1、数字后面加 L 是长整数，数值比较大。
 2、十六进制  0XAF  175;八进制  010  8（首位数字是0）
 3、math模块  floor() ,sqrt() ,ceil()等，nan 意思：not a number(非数值)
