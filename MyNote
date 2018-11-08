@@ -3,3 +3,5 @@ Python基础教程（第2版.修订版） Magnus Lie Hetland著，司维等译 �
 2、十六进制  0XAF  175;八进制  010  8（首位数字是0）
 3、math模块  floor() ,sqrt() ,ceil()等，nan 意思：not a number(非数值)
 4、cmath模块：复数运算，import cmath;cmath.sqrt(-1);1+3j;
+5、IDLE：IDLE 是一个纯 Python 下自带的简洁的集成开发环境(IDE)
+6、在py文件首行加入 #!/usr/bin/python3(ubuntu该目录下有python3这个文件)，命令行输入 chmod a+x hello.py,输入./hello.py可直接运行。
