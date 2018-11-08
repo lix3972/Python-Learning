@@ -5,3 +5,5 @@ Python基础教程（第2版.修订版） Magnus Lie Hetland著，司维等译 �
 4、cmath模块：复数运算，import cmath;cmath.sqrt(-1);1+3j;
 5、IDLE：IDLE 是一个纯 Python 下自带的简洁的集成开发环境(IDE)
 6、在py文件首行加入 #!/usr/bin/python3(ubuntu该目录下有python3这个文件)，命令行输入 chmod a+x hello.py,输入./hello.py可直接运行。
+7、反斜杠 \ 可以对字符串中的引号进行转义。字符串或表达式可以用\换行。
+8、三个引号（单引号或双引号）中的字符串可以换行，其中的单引号、双引号不用转义。
