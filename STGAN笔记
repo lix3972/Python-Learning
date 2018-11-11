@@ -1,0 +1,16 @@
+graph.geometric_multries:返回  
+  dp:G网络(生成网络，7层)的输出，对应论文中derta(三角形)p，形变参数。
+  pall:保存每次迭代后的p+dp
+  conv2Dlayer :feat relu（卷积），imageConcat 下采样。feat与imageConcat==>concat(合并)
+
+lrGp,lrD:学习率learning rate
+
+train_Donly.py
+  38
+  49 imageIntp
+  56 tf.gradient()
+  64 loss_D=loss_D+10*loss_D_grad
+  68 summaries
+
+train_STGAN.py
+  86 data.load(opt)
