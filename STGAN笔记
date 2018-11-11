@@ -11,6 +11,7 @@ train_Donly.py
   56 tf.gradient()
   64 loss_D=loss_D+10*loss_D_grad
   68 summaries
+  104 batch, PH-->28行
 
 train_STGAN.py
   86 data.load(opt)
