@@ -1,0 +1,11 @@
+1、安装pytorch
+  https://pytorch.org/resources  #pytorch官网 
+  conda install pytorch torchvision -c pytorch  #安装pytorch
+  如果上述安装完成后，使用时出现问题：  import torchvision不成功，安装torchvision
+                                    conda install torchvision #验证可行  conda install torchvision -c pytorch
+2、visdom启动 
+  python -m visdom.server
+  提示：Downloading scripts. It might take a while.
+  等到出现：It's Alive!
+          You can navigate to http://localhost:8097
+  打开浏览器，输入 http://localhost:8097
