@@ -40,3 +40,14 @@ https://www.apress.com/cn/book/9781484200292
   2.19 读取元组中的值，a=1,2,3 ;a[0]返回1
   2.20 元组可以在映射(和集合的成员)中当作键使用;作为内建函数和方法的返回值。
 3、使用字符串
+  3.1 标准的序列操作对字符串同样适用，但是字符串是不可改变的。
+  3.2 字符串格式化 %(数值运算时%表示求余)。format='Hello, %s , %s enough for ya?' ;values=('world','Hot');
+    print(format % values);输出 Hello, world, Hot enough for ya? 如果在格式化字符串中含有%,则用%%表示。
+    %s表示字符串,%010.3f，第一个0表示填充0,10表示数字宽度，.3小数点后面3位,f表示浮点数。整数%d。详见P46
+  3.3 在一个长字符串中查找子串 .find() 返回子串所在位置的最左端索引，未找到返回-1。参数：find(子串，查找起点，查找终点)
+  3.4 用指定字符连接序列中的元素 .join()。与split相逆。dirs=['','usr','bin','env'];'/'.join(dirs);输出'/usr/bin/env'
+  3.5 返回字符串小写字母 .lower 相关方法参见附录B
+  3.6 字符串替换 .replace(),参数(被替换字符，替换字符)。‘This is a test'.replace('is','eez')
+  3.7 字符串按指定字符分割 .split()
+  3.8 去除字符串前后空格 .strip()
+  3.9 字符串替换 translate 与 replace一样，不同的是translate只处理单个字符，优势在于可同时进行多个替换。详见P53
