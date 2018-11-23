@@ -1,0 +1,32 @@
+成功解决object at 0x000002463192BAC8
+学习Python过程中，常常会出现代码运行没报错，但输出的却不是我们想要的结果（图表，列表等等），而出现类似<filter object at 0x7f09a17652b0>的结果，这是因为访问对象时，返回的是一个地址，不是真实的数据
+如：
+
+up_days=filter(lambda day:day.change>0,stock_dict.values())
+print(up_days)
+
+    1
+    2
+
+返回
+
+<filter object at 0x7f09a17652b0>
+
+    1
+
+此时只需在外层加个list即可
+
+up_days=list(filter(lambda day:day.change>0,stock_dict.values()))
+print(up_days)
+
+    1
+    2
+
+返回
+
+[0, -0.019, -0.109, 0.235, 0.008, 0.0]
+--------------------- 
+作者：小小蒲公英 
+来源：CSDN 
+原文：https://blog.csdn.net/weixin_39777626/article/details/80080679 
+版权声明：本文为博主原创文章，转载请附上博文链接！
