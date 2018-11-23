@@ -1,0 +1,27 @@
+volatile 和 requires_grad在pytorch中的意思
+
+Backward过程中排除子图
+
+pytorch的BP过程是由一个函数决定的，loss.backward()， 可以看到backward()函数里并没有传要求谁的梯度。那么我们可以大胆猜测，在BP的过程中，pytorch是将所有影响loss的Variable都求了一次梯度。但是有时候，我们并不想求所有Variable的梯度。那就要考虑如何在Backward过程中排除子图（ie.排除没必要的梯度计算）。 
+
+如何BP过程中排除子图？ Variable的两个参数（requires_grad和volatile）
+
+
+requires_grad=True   要求梯度
+
+requires_grad=False   不要求梯度
+
+
+volatile=True相当于requires_grad=False。反之则反之。。。。。。。ok
+
+
+注意：如果a是requires_grad=True，b是requires_grad=False。则c=a+b是requires_grad=True。同样的道理应用于volatile
+
+
+
+为什么要排除子图
+
+也许有人会问，梯度全部计算，不更新的话不就得了。 
+这样就涉及了效率的问题了，计算很多没用的梯度是浪费了很多资源的（时间，计算机内存）
+
+来源：http://blog.csdn.net/u012436149/article/details/66971822
