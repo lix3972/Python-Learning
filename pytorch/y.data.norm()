@@ -1,0 +1,9 @@
+# .data #保持y不变，应该是y的数据
+# .norm() #数据求数据标准差，数据求平方和然后开平方
+# 例如：
+y=torch.tensor([1.,1.]) #整数不能进行norm()运算，需要是浮点数
+y.data   #输出tensor([1.,1.,])
+y.data.norm() #输出tensor(1.4142)  =sqrt(2)
+#————————————————————————————————
+a=torch.tensor([1.,2.,3.])
+a.data.norm()  #输出 tensor(3.7417)  =sqrt(1^2+2^2+3^2)=sqrt(1+4+9)
