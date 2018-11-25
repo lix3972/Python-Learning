@@ -16,4 +16,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 12、assert断言语句，声明其布尔值必须为真的判定，如果发生异常就说明表达示为假。  
 13、tile() 平铺之意，用于在同一维度上的复制,进行张量扩展  
 14、expand_dim() 增加维度  
-15、object at 0x000002463192BAC8  法一：data=[i for i in zip(*I)]   法二：list(zip(*I))
+15、object at 0x000002463192BAC8  法一：data=[i for i in zip(*I)]   法二：list(zip(*I))  
+16、iter() 函数用来生成迭代器， .next()调用其中的值
