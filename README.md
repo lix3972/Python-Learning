@@ -19,4 +19,4 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 15、object at 0x000002463192BAC8  法一：data=[i for i in zip(*I)]   法二：list(zip(*I))  
 16、iter() 函数用来生成迭代器， .next()调用其中的值
 17、pycharm编译出现139错误：matplotlib与pandas版本的问题，更新matplotlib版本后解决。  
-18、Pytorch用GPU加速：数据，网络，loss函数加.cuda()
+18、Pytorch用GPU加速：数据，网络，loss函数加.cuda() 例如：数据=torch.Tensor(数据).cuda();网路=网络.cuda();loss=loss.cuda()
