@@ -1,0 +1,275 @@
+pytorch 减小显存消耗，优化显存使用，避免out of memory
+https://blog.csdn.net/qq_28660035/article/details/80688427
+本文是整理了大神的两篇博客：
+
+如何计算模型以及中间变量的显存占用大小：
+
+https://oldpan.me/archives/how-to-calculate-gpu-memory
+
+如何在Pytorch中精细化利用显存：
+
+https://oldpan.me/archives/how-to-use-memory-pytorch
+
+还有知乎中大神的解答：
+
+https://zhuanlan.zhihu.com/p/31558973
+
+ppt
+
+https://www.zhihu.com/question/67209417
+
+在说之前先推荐一个实时监控内存显存使用的小工具：
+
+sudo apt-get install htop
+
+监控内存（-d为更新频率，下为每0.1s更新一次）：
+
+htop -d=0.1
+
+监控显存（-n为更新频率，下为每0.1s更新一次）：
+
+watch -n 0.1 nvidia-smi
+1.问题陈述：
+
+torch.FatalError: cuda runtime error (2) : out of memory at /opt/conda/conda-bld/pytorch_1524590031827/work/aten/src/THC/generic/THCStorage.cu:58
+
+令人窒息的显存溢出，有时是沉默式gg，不动声色的就溢出没有了。。原因是：
+
+显存装不下模型权重+中间变量
+
+优化方法：及时清空中间变量，优化代码，减少batch
+2.显存消耗计算方法：
+
+先看看我们使用的pytorch数据格式：
+
+
+平时训练中使用的多是float32 和 int32。
+
+32位的单精度浮点型占用空间为4B，
+
+那么一个batch在网络开始比如说是16×3×224×224，那么所占用的显存也就是16×3×224×224×4B = 9.1875MB
+
+到了网络后期比如说是16×512×14*14，所占用的显存也就是16×512×14×14×4B = 6.125MB
+
+即使是256的batch_size，也就是147MB，整个网络如果是19层，为2.728GB，并没有到咱们至少8G的显存。
+
+显存消耗的幕后黑手其实是神经网络中的中间变量以及使用optimizer算法时产生的巨量的中间参数。
+
+显存占用 = 模型参数 + 计算产生的中间变量
+
+以VGG16为例：
+
+原文博主注意到上图中在计算的时候默认的数据格式是8-bit而不是32-bit，所以最后的结果要乘上一个4，即552mb。
+
+其实只要一计算，就可以知道当batch_size是256时，中间变量所产生的参数量是有多庞大。。。
+
+反向传播时，中间变量+原来保存的中间变量，存储量会翻倍。
+
+而且有些适用于移动端的网络mobilenet等，计算量是变少了，但对显存占用变大了，原因就是中间参数存储增加了。
+3.代码计算显存占用：
+
+计算模型权重及中间变量占用大小：
+
+    # 模型显存占用监测函数
+    # model：输入的模型
+    # input：实际中需要输入的Tensor变量
+    # type_size 默认为 4 默认类型为 float32 
+     
+    def modelsize(model, input, type_size=4):
+        para = sum([np.prod(list(p.size())) for p in model.parameters()])
+        print('Model {} : params: {:4f}M'.format(model._get_name(), para * type_size / 1000 / 1000))
+     
+        input_ = input.clone()
+        input_.requires_grad_(requires_grad=False)
+     
+        mods = list(model.modules())
+        out_sizes = []
+     
+        for i in range(1, len(mods)):
+            m = mods[i]
+            if isinstance(m, nn.ReLU):
+                if m.inplace:
+                    continue
+            out = m(input_)
+            out_sizes.append(np.array(out.size()))
+            input_ = out
+     
+        total_nums = 0
+        for i in range(len(out_sizes)):
+            s = out_sizes[i]
+            nums = np.prod(np.array(s))
+            total_nums += nums
+     
+     
+        print('Model {} : intermedite variables: {:3f} M (without backward)'
+              .format(model._get_name(), total_nums * type_size / 1000 / 1000))
+        print('Model {} : intermedite variables: {:3f} M (with backward)'
+              .format(model._get_name(), total_nums * type_size*2 / 1000 / 1000))
+
+实际消耗会大一些，因为有框架消耗。
+
+4.其他方法：
+
+a. inplace替换：
+
+我们都知道激活函数Relu()有一个默认参数inplace，默认设置为False，当设置为True时，我们在通过relu()计算时的得到的新值不会占用新的空间而是直接覆盖原来的值，这也就是为什么当inplace参数设置为True时可以节省一部分内存的缘故。
+
+b. 用del一遍计算一边清除中间变量。
+
+c. 用checkpoint牺牲计算速度：
+
+在Pytorch-0.4.0出来了一个新的功能，可以将一个计算过程分成两半，也就是如果一个模型需要占用的显存太大了，我们就可以先计算一半，保存后一半需要的中间结果，然后再计算后一半。
+
+也就是说，新的checkpoint允许我们只存储反向传播所需要的部分内容。如果当中缺少一个输出(为了节省内存而导致的)，checkpoint将会从最近的检查点重新计算中间输出，以便减少内存使用(当然计算时间增加了)：
+
+    # 首先设置输入的input=>requires_grad=True
+    # 如果不设置可能会导致得到的gradient为0
+     
+    input = torch.rand(1, 10, requires_grad=True)
+    layers = [nn.Linear(10, 10) for _ in range(1000)]
+     
+    # 定义要计算的层函数，可以看到我们定义了两个
+    # 一个计算前500个层，另一个计算后500个层
+     
+    def run_first_half(*args):
+        x = args[0]
+        for layer in layers[:500]:
+            x = layer(x)
+        return x
+     
+    def run_second_half(*args):
+        x = args[0]
+        for layer in layers[500:-1]:
+            x = layer(x)
+        return x
+     
+    # 我们引入新加的checkpoint
+    from torch.utils.checkpoint import checkpoint
+     
+    x = checkpoint(run_first_half, input)
+    x = checkpoint(run_second_half, x)
+    # 最后一层单独调出来执行
+    x = layers[-1](x)
+    x.sum.backward()  # 这样就可以了
+
+对于Sequential-model来说，因为Sequential()中可以包含很多的block，所以官方提供了另一个功能包：
+
+    input = torch.rand(1, 10, requires_grad=True)
+    layers = [nn.Linear(10, 10) for _ in range(1000)]
+    model = nn.Sequential(*layers)
+     
+    from torch.utils.checkpoint import checkpoint_sequential
+     
+    # 分成两个部分
+    num_segments = 2
+    x = checkpoint_sequential(model, num_segments, input)
+    x.sum().backward()  # 这样就可以了
+
+d.减小batch_size, 避免用全连接，多用下采样。
+
+e. torch.backends.cudnn.benchmark = True 在程序刚开始加这条语句可以提升一点训练速度，没什么额外开销。
+
+f. 因为每次迭代都会引入点临时变量，会导致训练速度越来越慢，基本呈线性增长。开发人员还不清楚原因，但如果周期性的使用torch.cuda.empty_cache()的话就可以解决这个问题。
+5.显存跟踪：
+
+开头链接的博主开发了一个库：pynvml（Nvidia的Python环境库和Python的垃圾回收工具）
+
+可以实时地打印我们使用的显存以及哪些Tensor使用了我们的显存
+
+https://github.com/Oldpan/Pytorch-Memory-Utils
+
+    import datetime
+    import linecache
+    import os
+     
+    import gc
+    import pynvml
+    import torch
+    import numpy as np
+     
+     
+    print_tensor_sizes = True
+    last_tensor_sizes = set()
+    gpu_profile_fn = f'{datetime.datetime.now():%d-%b-%y-%H:%M:%S}-gpu_mem_prof.txt'
+     
+    # if 'GPU_DEBUG' in os.environ:
+    #     print('profiling gpu usage to ', gpu_profile_fn)
+     
+    lineno = None
+    func_name = None
+    filename = None
+    module_name = None
+     
+    # fram = inspect.currentframe()
+    # func_name = fram.f_code.co_name
+    # filename = fram.f_globals["__file__"]
+    # ss = os.path.dirname(os.path.abspath(filename))
+    # module_name = fram.f_globals["__name__"]
+     
+     
+    def gpu_profile(frame, event):
+        # it is _about to_ execute (!)
+        global last_tensor_sizes
+        global lineno, func_name, filename, module_name
+     
+        if event == 'line':
+            try:
+                # about _previous_ line (!)
+                if lineno is not None:
+                    pynvml.nvmlInit()
+                    # handle = pynvml.nvmlDeviceGetHandleByIndex(int(os.environ['GPU_DEBUG']))
+                    handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+                    meminfo = pynvml.nvmlDeviceGetMemoryInfo(handle)
+                    line = linecache.getline(filename, lineno)
+                    where_str = module_name+' '+func_name+':'+' line '+str(lineno)
+     
+                    with open(gpu_profile_fn, 'a+') as f:
+                        f.write(f"At {where_str:<50}"
+                                f"Total Used Memory:{meminfo.used/1024**2:<7.1f}Mb\n")
+     
+                        if print_tensor_sizes is True:
+                            for tensor in get_tensors():
+                                if not hasattr(tensor, 'dbg_alloc_where'):
+                                    tensor.dbg_alloc_where = where_str
+                            new_tensor_sizes = {(type(x), tuple(x.size()), np.prod(np.array(x.size()))*4/1024**2,
+                                                 x.dbg_alloc_where) for x in get_tensors()}
+                            for t, s, m, loc in new_tensor_sizes - last_tensor_sizes:
+                                f.write(f'+ {loc:<50} {str(s):<20} {str(m)[:4]} M {str(t):<10}\n')
+                            for t, s, m, loc in last_tensor_sizes - new_tensor_sizes:
+                                f.write(f'- {loc:<50} {str(s):<20} {str(m)[:4]} M {str(t):<10}\n')
+                            last_tensor_sizes = new_tensor_sizes
+                    pynvml.nvmlShutdown()
+     
+                # save details about line _to be_ executed
+                lineno = None
+     
+                func_name = frame.f_code.co_name
+                filename = frame.f_globals["__file__"]
+                if (filename.endswith(".pyc") or
+                        filename.endswith(".pyo")):
+                    filename = filename[:-1]
+                module_name = frame.f_globals["__name__"]
+                lineno = frame.f_lineno
+     
+                return gpu_profile
+     
+            except Exception as e:
+                print('A exception occured: {}'.format(e))
+     
+        return gpu_profile
+     
+     
+    def get_tensors():
+        for obj in gc.get_objects():
+            try:
+                if torch.is_tensor(obj):
+                    tensor = obj
+                else:
+                    continue
+                if tensor.is_cuda:
+                    yield tensor
+            except Exception as e:
+                print('A exception occured: {}'.format(e))
+
+需要注意的是，linecache中的getlines只能读取缓冲过的文件，如果这个文件没有运行过则返回无效值。Python 的垃圾收集机制会在变量没有应引用的时候立马进行回收，但是为什么模型中计算的中间变量在执行结束后还会存在呢。既然都没有引用了为什么还会占用空间？
+一种可能的情况是这些引用不在Python代码中，而是在神经网络层的运行中为了backward被保存为gradient，这些引用都在计算图中，我们在程序中是无法看到的。
