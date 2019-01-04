@@ -1,0 +1,32 @@
+
+
+如果在类中定义了__getitem__()方法，那么他的实例对象（假设为P）就可以这样P[key]取值。当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。
+
+    # -*- coding:utf-8 -*-
+    class DataTest:
+        def __init__(self,id,address):
+            self.id=id
+            self.address=address
+            self.d={self.id:1,
+                    self.address:"192.168.1.1"
+                    }
+            
+        def __getitem__(self,key):
+            return "hello"
+        
+     
+    data=DataTest(1,"192.168.2.11")
+    print data[2]
+
+
+输出结果为：
+
+hello
+
+
+在这我认为实例对象的key不管是否存在都会调用类中的__getitem__()方法。而且返回值就是__getitem__()方法中规定的return值。
+--------------------- 
+作者：至尊小宝 
+来源：CSDN 
+原文：https://blog.csdn.net/chituozha5528/article/details/78354833 
+版权声明：本文为博主原创文章，转载请附上博文链接！
