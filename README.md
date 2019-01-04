@@ -24,3 +24,4 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 20、cuda error out of memory:待解决  
 21、pytorch中transform函数  
 22、python __getitem__()方法理解：当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。   
+23、pytorch中的torch.utils.data.Dataset和torch.utils.data.DataLoader: https://blog.csdn.net/geter_CS/article/details/83378786
