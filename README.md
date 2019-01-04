@@ -22,3 +22,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 18、Pytorch用GPU加速：数据，网络，loss函数加.cuda() 例如：数据=torch.Tensor(数据).cuda();网路=网络.cuda();loss=loss.cuda()  
 19、skimage导入：在pycharm中，安装scikit-image包。  
 20、cuda error out of memory:待解决  
+21、pytorch中transform函数  
+22、python __getitem__()方法理解：当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。   
