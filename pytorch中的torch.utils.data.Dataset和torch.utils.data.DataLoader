@@ -1,0 +1,73 @@
+首先看torch.utils.data.Dataset这个抽象类。可以使用这个抽象类来构造pytorch数据集。
+要注意的是以这个类构造的子类，一定要定义两个函数一个是__len__，另一个是__getitem__，
+前者提供数据集size，而后者通过给定索引获取数据和标签。__getitem__一次只能获取一个数据（不知道是不是强制性的），
+所以通过torch.utils.data.DataLoader来定义一个新的迭代器，实现batch读取。首先我们来定义一个j简单的数据集：
+
+    from torch.utils.data.dataset import Dataset
+    import numpy as np
+
+    class TxtDataset(Dataset):#这是一个Dataset子类
+        def __init__(self):
+            self.Data=np.asarray([[1,2],[3,4],[2,1],[6,4],[4,5]])#特征向量集合,特征是2维表示一段文本
+            Label=np.asarray([1, 2, 0, 1, 2])#标签是1维,表示文本类别
+     
+        def __getitem__(self, index):
+            txt=torch.LongTensor(self.Data[index])
+            label=torch.LongTensor(self.Label[index])
+            return txt, label #返回标签
+     
+        def __len__(self):
+            return len(self.Data)
+
+我们创建一个TxtDataset对象，并调用函数，注意__getitem__的调用要通过： 对象[索引]调用
+
+    Txt=TxtDataset()
+    print(Txt[1])
+    print(Txt.__len__())
+     
+     
+    #输出：
+    (array([3, 4]), 2)
+    5
+
+看到输出中特征向量和标签是以tuple返回的。而此处得到样本是一个不是批量的所以我们使用了torch.utils.data.DataLoader参数有 数据集对象（Dataset）、batc_size、shuffle（设置为真不会按数据顺序输出，一般在训练数据中使用）、num_workers（设置多少个子进程可以使用，设置0表示在主进程中使用）
+
+    test_loader = DataLoader(Txt,batch_size=2,shuffle=False,
+                              num_workers=4)
+    for i,traindata in enumerate(test_loader):
+        print('i:',i)
+        Data,Label=traindata
+        print('data:',Data)
+        print('Label:',Label)
+    #这里的enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中
+    输出：
+    i: 0
+    data: tensor([[ 1,  2],
+            [ 3,  4]], dtype=torch.int32)
+    Label: tensor([ 1,  2], dtype=torch.int32)
+    i: 1
+    data: tensor([[ 2,  1],
+            [ 6,  4]], dtype=torch.int32)
+    Label: tensor([ 0,  1], dtype=torch.int32)
+    i: 2
+    data: tensor([[ 4,  5]], dtype=torch.int32)
+    Label: tensor([ 2], dtype=torch.int32)
+
+在这个例子中设置批量为2，因此每次去出两个样本。除了文本数据可以这样设置，图片数据集也是可以的。要注意这里shuffle设置为了False取出数据是依次取出的但是若设置为True，此时输出不是按顺序输出的
+
+    i: 0
+    data: tensor([[ 4,  5],
+            [ 1,  2]], dtype=torch.int32)
+    Label: tensor([ 2,  1], dtype=torch.int32)
+    i: 1
+    data: tensor([[ 3,  4],
+            [ 6,  4]], dtype=torch.int32)
+    Label: tensor([ 2,  1], dtype=torch.int32)
+    i: 2
+    data: tensor([[ 2,  1]], dtype=torch.int32)
+    Label: tensor([ 0], dtype=torch.int32)
+--------------------- 
+作者：geter_CS 
+来源：CSDN 
+原文：https://blog.csdn.net/geter_CS/article/details/83378786 
+版权声明：本文为博主原创文章，转载请附上博文链接！
