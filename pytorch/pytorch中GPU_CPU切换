@@ -1,0 +1,27 @@
+保存模型在GPU:3上完成。加载模型只有GPU:0。直接load会出错。可以在load中指定cuda(0),让模型加载到GPU:0上。
+G_A=torch.load(G_A_path,map_location=lambda storage, loc: storage.cuda(0))
+
+pytorch在CPU和GPU上加载模型
+ytorch允许把在GPU上训练的模型加载到CPU上，也允许把在CPU上训练的模型加载到GPU上。
+
+
+1、CPU->CPU,GPU->GPU
+
+torch.load('gen_500000.pkl')
+
+
+
+2、GPU->CPU
+
+torch.load('gen_500000.pkl', map_location=lambda storage, loc: storage)
+
+
+
+3、CPU->GPU1
+
+torch.load('gen_500000.pkl', map_location=lambda storage, loc: storage.cuda(1))
+--------------------- 
+作者：-牧野- 
+来源：CSDN 
+原文：https://blog.csdn.net/dcrmg/article/details/79503978 
+版权声明：本文为博主原创文章，转载请附上博文链接！
