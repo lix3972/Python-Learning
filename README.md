@@ -22,7 +22,7 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 18、Pytorch用GPU加速：数据，网络，loss函数加.cuda() 例如：数据=torch.Tensor(数据).cuda();网路=网络.cuda();loss=loss.cuda()  
 19、skimage导入：在pycharm中，安装scikit-image包。  
 20、cuda error out of memory:(待解决)1)减少变量个数：用后面的变量替换前面的变量，变量用完后del掉(貌似用clear之类的，未尝试)，等。2）据说pytroch可以用checkpoint把参数分成两部分分别计算(会减慢速度，未尝试)。3）减少循环的使用。  
-21、pytorch中transform函数  
+21、pytorch中transform函数:https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-transform/  
 22、python __getitem__()方法理解：当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。   
 23、pytorch中的torch.utils.data.Dataset和torch.utils.data.DataLoader: https://blog.csdn.net/geter_CS/article/details/83378786  
 24、PIL.Image与numpy.array之间的相互转换：img = numpy.array(im);img = Image.fromarray(img.astype('uint8')).convert('RGB')  
