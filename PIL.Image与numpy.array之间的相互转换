@@ -1,0 +1,25 @@
+
+当使用PIL.Image.open()打开图片后，如果要使用img.shape函数，需要先将image形式转换成array数组
+
+img = numpy.array(im)
+
+比如要加椒盐噪声
+
+        for k in range(n):
+            i = int(numpy.random.random() * img.shape[1]);
+            j = int(numpy.random.random() * img.shape[0]);
+            if img.ndim == 2:
+                img[j,i] = 255
+            elif img.ndim == 3:
+                img[j,i,0]= 255
+                img[j,i,1]= 255
+                img[j,i,2]= 255
+
+最后将array转化为inage形式
+
+img = Image.fromarray(img.astype('uint8')).convert('RGB')
+--------------------- 
+作者：行者无疆兮 
+来源：CSDN 
+原文：https://blog.csdn.net/qq_30159015/article/details/80070514 
+版权声明：本文为博主原创文章，转载请附上博文链接！
