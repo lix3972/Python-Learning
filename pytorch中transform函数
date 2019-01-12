@@ -25,3 +25,23 @@ ColorJitter：随机改变图像的亮度对比度和饱和度
 链接：https://www.jianshu.com/p/13e31d619c15
 來源：简书
 简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
+================================================================
+https://pytorch-cn.readthedocs.io/zh/latest/torchvision/torchvision-transform/
+Conversion Transforms
+class torchvision.transforms.ToTensor
+
+把一个取值范围是[0,255]的PIL.Image或者shape为(H,W,C)的numpy.ndarray，转换成形状为[C,H,W]，取值范围是[0,1.0]的torch.FloadTensor
+
+data = np.random.randint(0, 255, size=300)
+img = data.reshape(10,10,3)
+print(img.shape)
+img_tensor = transforms.ToTensor()(img) # 转换成tensor
+print(img_tensor)
+
+class torchvision.transforms.ToPILImage
+
+将shape为(C,H,W)的Tensor或shape为(H,W,C)的numpy.ndarray转换成PIL.Image，值不变。
+通用变换
+class torchvision.transforms.Lambda(lambd)
+
+使用lambd作为转换器。
