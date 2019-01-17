@@ -1,1 +1,33 @@
-在pycharm中，安装scikit-image包
+在pycharm中，安装scikit-image包  
+skimage.io读出来的数据是numpy格式的  
+skimage的是(height,width, channel)   
+
+from skimage import io
+img=io.imread('d:/dog.jpg')
+io.imshow(img)
+io.imsave('d:/cat.jpg',img)
+
+
+程序自带图片
+skimage程序自带了一些示例图片，如果我们不想从外部读取图片，就可以直接使用这些示例图片：
+astronaut     航员图片      coffee     一杯咖啡图片   
+lena          lena美女图片   camera   拿相机的人图片   
+coins           硬币图片     moon    月亮图片
+checkerboard   棋盘图片       horse   马图片   
+page   书页图片              chelsea   小猫图片     
+hubble_deep_field    星空图片   text   文字图片
+clock    时钟图片   immunohistochemistry   结肠图片     
+
+显示这些图片可用如下代码，不带任何参数
+from skimage import io, data
+img=data.lena()
+io.imshow(img)
+
+图片名对应的就是函数名，如camera图片对应的函数名为camera(). 这些示例图片存放在skimage的安装目录下面，路径名称为data_dir,我们可以将这个路径打印出来看看
+from skimage import data_dir
+print(data_dir)
+
+作者：jiandanjinxin
+链接：https://www.jianshu.com/p/f2e88197e81d
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
