@@ -1,6 +1,9 @@
 # Python-Learning
 ## python学习网站  
+1.https://docs.python.org/library/  Python库参考手册，网页中可以选择python版本(目前默认3.7).https://docs.python.org/3/library/  
+2.https://docs.python.org/  Python文档网站，网站地址会自动变成https://docs.python.org/3/  
 https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html  
+
 ## python 学习笔记  
 1、Python:是一种广泛意义上的编程语言。它非常适合做交互式的工作，并且足够强大可做大型应用。  
 2、Numpy:是python的一个扩展，它定义了数组和矩阵，以及作用在它们上面的基本操作。  
