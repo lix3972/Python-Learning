@@ -1,6 +1,16 @@
 File==>settings==>Project:***下 Project Interpreter ==>右边“+”(滚动条右边加号) ==>在搜索栏写入需要安装的包，
 选中待安装的包，点左下角Install Package，等待安装完成。
-注意：勾选右下角Specify version，选择需要安装的版本。如果跟系统安装版本不同可能会报错。
+注意：勾选右下角Specify version，选择需要安装的版本。如果跟系统安装版本不同可能会报错。  
+Pycharm导入程序包步骤：
+(1)在Pycharm中，点击菜单 File ->settings,弹出 Settings对话框。
+(2)在”Settings对话框“中，左边栏中选择Project:***中的Project Interpreter。在右边栏上边”Project Interpreter：“后的框中选择Python解释器。
+在右侧下边栏中，点“+”号，在弹出的”Available Packages对话框“中的搜索框中写需要添加的程序包的名称，搜索成功后，选择添加的版本，
+然后点左下角“Install Pachakge"，等待安装(根据网速不同等待时间不同)，成功会有提示。然后关闭Available Packages对话框，返回Settings对话框，
+点Apply。
+(3)如果在”Available Packages对话框“中没有搜索到程序包，可以点”+“号下边的圆圈(anacanda)，然后点"+"号。
+
+
+
 
 查看版本
 打开终端，输入python 进入python 环境
