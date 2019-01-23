@@ -5,9 +5,12 @@ Pycharm导入程序包步骤：
 (1)在Pycharm中，点击菜单 File ->settings,弹出 Settings对话框。
 (2)在”Settings对话框“中，左边栏中选择Project:***中的Project Interpreter。在右边栏上边”Project Interpreter：“后的框中选择Python解释器。
 在右侧下边栏中，点“+”号，在弹出的”Available Packages对话框“中的搜索框中写需要添加的程序包的名称，搜索成功后，选择添加的版本，
-然后点左下角“Install Pachakge"，等待安装(根据网速不同等待时间不同)，成功会有提示。然后关闭Available Packages对话框，返回Settings对话框，
+然后点左下角“Install Pachakge"，等待安装(根据网速不同等待时间不同)，成功会有提示。然后关闭“Available Packages对话框”，返回Settings对话框，
 点Apply。
-(3)如果在”Available Packages对话框“中没有搜索到程序包，可以点”+“号下边的圆圈(anacanda)，然后点"+"号。
+(3)如果在”Available Packages对话框“中没有搜索到程序包，可以点”+“号下边的圆圈(anaconda)，然后再点"+"号， 
+在弹出的“Available Packages对话框”中搜索需要添加的程序包，然后安装程序包，方法同上。
+注意：程序包的名称大多与import 后的名称一致，下面列出不一致的程序包：
+
 
 
 
