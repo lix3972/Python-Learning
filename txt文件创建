@@ -1,0 +1,4 @@
+txtName='tryCreatTxt.txt'
+f=open(txtName,'w')  # 'a'=追加
+f.write('Hello.')
+f.close()
