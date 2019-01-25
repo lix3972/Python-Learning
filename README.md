@@ -34,4 +34,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 22、python __getitem__()方法理解：当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。   
 23、pytorch中的torch.utils.data.Dataset和torch.utils.data.DataLoader: https://blog.csdn.net/geter_CS/article/details/83378786  
 24、PIL.Image与numpy.array之间的相互转换：img = numpy.array(im);img = Image.fromarray(img.astype('uint8')).convert('RGB')    
-25、sorted排序：mseAll.append((modelNumber,mseAB));        sortedMse=sorted(mseAll, key=lambda mse: mse[1])
+25、sorted排序：mseAll.append((modelNumber,mseAB));        sortedMse=sorted(mseAll, key=lambda mse: mse[1])  
+26、txt文件创建：f=open('txtName','a');f.write('Hello.\n');f.close();\n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。
