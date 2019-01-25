@@ -1,0 +1,7 @@
+参考 https://www.cnblogs.com/whaben/p/6495702.html
+实例：plotNpy.py
+mseAll=[]
+mseAll.append((modelNumber,mseAB))
+sortedMse=sorted(mseAll, key=lambda mse: mse[1])
+按照mseAB排序，modelNumber要与mseAB对应改变顺序。
+key=lambda 可能是关键词，mse:mse[1]中，mse是自己选取的暂时变量名(可任意设置)，[1]对应的是(modelNumber,mseAB)中的mseAB。
