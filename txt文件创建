@@ -1,6 +1,6 @@
 txtName='tryCreatTxt.txt'
 f=open(txtName,'w')  # 'a'=追加
-f.write('Hello.')
+f.write('Hello.')  # \n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。
 f.close()
 
 http://www.runoob.com/python/python-func-open.html
