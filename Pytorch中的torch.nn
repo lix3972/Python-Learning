@@ -1,0 +1,145 @@
+「Deep Learning」理解Pytorch中的「torch.nn」
+https://blog.csdn.net/dgyuanshaofeng/article/details/80345103
+
+
+基于Pytorch 0.2.0_1
+Parameters， 参数，文档
+Containers，容器，文档
+
+Module，所有神经网络模块的基础类。
+
+Sequential，序贯容器，类似Keras里面的序贯模型，另外这些是比较传统的卷积网络了。
+Convolution layers，卷积层，文档
+
+Conv1d，一维卷积层。用于计算ECG等一维数据。
+
+Conv2d，二维卷积层。用于计算CT断层或MR断层，或二维超声图像，自然图像等二维数据。
+
+Conv3d，三维卷积层。用于计算CT或MR等容积数据，视频数据等三维数据。
+
+ConvTranspose1d
+
+ConvTranspose2d，二维转置卷积层。
+
+ConvTranspose3d
+Pooling layers，池化层，文档
+Padding layers，填充层，文档
+
+ReflectionPad2d，属于Padding Layers，镜像填充。Padding的方式可以是统一方式，也就是指定一个数值，也可以是不规则方式，也就是给出一个4元组。Shape的计算公式可以查看文档。如下：
+Ho=Hi+paddingTop+paddingBottom，Wo=Wi+paddingLeft+paddingRight
+
+#is int
+m = nn.ReflectionPad2d(3)
+# ReflectionPad2d(3, 3, 3, 3)
+input = autograd.Variable(torch.randn(16, 3, 320, 480)) # size 16 3 320 480
+output = m(input) # size 16 3 326 486
+#is 4-tuple
+m = nn.ReflectionPad2d((3, 3, 6, 6)) # Left, Right, Top, Bottom
+output = m(input) # size 16 3 332 486
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+
+ReplicationPad2d，同上，复制填充。
+
+ReplicationPad3d，类似上面。
+
+ZeroPad2d，同上，常数为零。
+
+ConstantPad2d，同上，常数自己指定。
+Non-linear Activations，非线性激活函数，文档
+
+LeakyReLU，泄漏ReLU。
+
+Tanh，双曲正切函数。输出值范围在[-1，1]。
+Normalization layers，规范化层，文档
+
+BatchNorm2d，根据公式进行空间批归一化(Spatial BatchNorm)，也即input−mean(input)var(input)+eps√∗γ+β
+。这里的input一般为4d张量的每一通道，也就是每一通道有自己的mean、var、γ和β
+
+。
+
+InstanceNorm2d，根据公式进行归一化，也即nput−mean(input)var(input)√+eps∗γ+β
+
+，这个公式跟BatchNorm2d有点差别，开方计算仅对方差进行。不明白batchnorm和instancenorm的差别，需要看看论文。
+Recurrent layers，循环层，文档
+Linear layers，线性层，文档
+
+Linear，我怀疑是全连接层。由例子可见，m=nn.Linear(20,30)为创建一个30*20的矩阵weight，另外bias为30。输入x为(128, 20)，输出y(128, 30)。
+Dropout layers，Dropout层，文档
+Sparse layers，稀疏层，文档
+Distance function，距离函数，文档
+Loss functions，损失函数，文档
+
+L1Loss，计算输入x和目标y的差异（差）的平均绝对值，也就是两个矩阵点对点作差并取绝对值，求和然后除以元素的总数。如果参数size_average=False，那么不进行“除以元素的总数”。两个矩阵可推广到4维张量等，这是元素的总数就是算上多batchsize多channel了。另外，在0.3.0版本中，可以设置reduce=False来避免多batchsize计算，也就是可以计算每一批量中的L1Loss，不进行average。
+
+MSELoss，也就是L2Loss。比如低剂量CT图像为imageld，高剂量CT图像为imagehd，都是矩阵。去噪的MSE损失为
+loss=∑widthj∑heighti|imageld−imagehd|2|height||width|
+
+分母是总像素个数。
+
+CrossEntropyLoss，CE损失，结合了对数SoftMax（LogSoftMax）和负似然损失（negative log likelihood loss, NLLLoss）。
+
+NLLLoss，负似然损失。
+
+BCELoss，二项交叉熵。
+
+BCEWithLogitsLoss，结合了Sigmoid层和BCELoss，好于直接平凡的Sigmoid+BCELoss，因为利用log-sum-exp技巧，使得计算更稳定。代码
+Vision layers，视觉层，文档
+
+PixelShuffle
+
+Upsample，上采样操作，可用于多通道的二维或三维数据。输入数据假设为minibatch∗channels∗[depth]∗height∗width
+
+。支持，bilinear双线性插值，trilinear三次线性插值和nearest neighbor最近邻插值，其中前两个仅支持4D张量。进行上采样时，要么给出scale_factor尺度因子，要么给出size目标输出大小，不可同时指定。
+参数学习：
+size - 输出大小
+scale_factor - 尺度因子
+mode - 模式，指插值方式
+使用如下：
+
+UpsamplingNearest2d
+
+UpsamplingBilinear2d
+DataParallel layers (multi-GPU, distributed)，数据并行层，支持分布式多GPU，文档
+Utilities，使用，文档
+torch.nn.functional，函数式，文档
+torch.nn.init，负责权重和偏置的初始化，文档
+
+xavier_normal，为Glorot initialisation，在论文[1]中提出。权重的值从N(0,std)
+中采样获取，其中std=gain∗(2/(fanin+fanout))‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾√，gain为放缩因子（默认为1），fanin和fanout
+
+分别为权重张量中的输入神经元个数和输出神经元个数。
+
+xavier_uniform，同上。权重的值从U(−a,a)
+中采样获取，其中a=gain∗(2/(fanin+fanout))‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾√∗3‾√，gain为放缩因子（默认为1），fanin和fanout同上。可以使用normal和uniform的方法验证，也就是利用xavier_uniform和uniform分别初始化一个矩阵，其中uniform的参数由自己手动计算，经过初始化后的两个矩阵作差再求期望，如果足够小，那么就理解了，但是fanin和fanout
+
+要求和，所以我们并不清楚，哪个是输入和输出。
+
+kaiming_uniform，为He initilisation，在论文[2]中被提出。权重的值从U(−bound,bound)
+中采样获取，其中bound=(2/((1+a2)∗fanin))‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾√∗3‾√，a为这之后被使用的rectifier的负斜率，针对ReLU默认为0，mode可选“fanin”或“fanout”。选择fanin，将在正向传播中保持权重的方差大小，而fanout
+
+，将在反向传播中保持大小。
+
+kaiming_normal，同上。权重的值从N(0,std)
+中采样获取，其中std=(2/((1+a2)‾‾‾‾‾‾‾‾‾‾‾√∗fanin))
+
+，其他同上。]
+
+orthogonal，API中并没有详细介绍，在论文中[3]中被提出。从名字上，权重的值被(半)正交矩阵填充。
+
+参考文献
+[1] Understanding the Difficulty of Training Deep Feedforward Neural Networks, Glorot X., Bengio Y.
+[2] Delving deep into rectifier: Surpassing human-level performance on ImageNet classification, He K. et al.
+[3] Exact Solutions to the Nonlinear Dynamics of Learning in Deep Linear Neural Networks, Saxe A. M. et al.
+--------------------- 
+作者：小锋子Shawn 
+来源：CSDN 
+原文：https://blog.csdn.net/dgyuanshaofeng/article/details/80345103 
+版权声明：本文为博主原创文章，转载请附上博文链接！
