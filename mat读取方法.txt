@@ -1,0 +1,95 @@
+1、mat文件版本更改
+在matlab中，点“主页”，点工具栏中“布局”旁边的“预设”，弹出“预设项”对话框，点左侧：matlab->常规->MAT-File，在右侧选“MATLAB版本7.3或更高版本(以-v7.3形式保存)在64位系统上，变量可以超过2GB”选项。然后点“确定”。
+2、用h5py读取mat文件
+（1）python安装h5py
+
+sudo pip install cython
+sudo apt-get install libhdf5-dev
+sudo pip install h5py
+
+如果在pycharm中搜索h5py安装即可
+
+（2）读取方法
+import h5py
+import numpy as np
+
+fileName='img_0138xg2.mat'
+train_gt = h5py.File(fileName,'r')
+train_gt = train_gt['outputD_map']
+saveName='img_0138.npy'
+np.save(saveName, train_gt)
+==============================================================================================
+mat文件几种读取方法
+1、使用scipy，具体实现如下：（适用于-v7形式保存的mat文件）
+
+import scipy.io as scio
+
+import pandas as pd
+
+data_path="train.mat"
+
+#Method 1
+
+data = scio.loadmat(data_path)
+
+data_train_label=data_train.get('label')#取出字典里的label
+
+data_train_data=data_train.get('data')#取出字典里的data
+可以参考以下链接：https://docs.scipy.org/doc/scipy/reference/io.html
+
+2、mat4py库：(scipy.io读取1.3M大小的mat文件出错，mat4py可以读取)
+功能： 将Matlab 数据导入为基本的Python数据类型。矩阵是以行为组的存储方式(使用列表的列表)。 Matlab结构体Struct和元胞Cell 使用Python的词典表示。
+
+    import mat4py
+     
+    student1 = mat4py.loadmat('student.mat')
+     
+    student1 = student1['student']
+     
+    print type(student1)  #dict 
+     
+    print ','.join(['%s' % key for key,val in student1.iteritems()]) # age,score,name,sex
+     
+     
+
+    Load data from MAT-file
+     
+    The function loadmat loads all variables stored in the MAT-file into a simple Python data structure, using only Python’s dict and list objects. Numeric and cell arrays are converted to row-ordered nested lists. Arrays are squeezed to eliminate arrays with only one element. The resulting data structure is composed of simple types that are compatible with the JSON format.
+     
+    Example: Load a MAT-file into a Python data structure:
+     
+    data = loadmat('datafile.mat')
+    The variable data is a dict with the variables and values contained in the MAT-file.
+     
+    Save Python data structure to a MAT-file
+     
+    Python data can be saved to a MAT-file, with the function savemat. Data has to be structured in the same way as for loadmat, i.e. it should be composed of simple data types, like dict, list, str, int and float.
+     
+    Example: Save a Python data structure to a MAT-file:
+     
+    savemat('datafile.mat', data)
+
+
+链接：https://pypi.python.org/pypi/mat4py/0.4.0
+
+3、h5py
+
+    from pandas import Series,DataFrame
+    import pandas as pd
+    import numpy as np
+    import h5py
+    datapath = 'data10.mat'
+    file = h5py.File(datapath,'r')
+    def Print(name):print(name)
+    data = file['CH01'][:]
+    dfdata = pd.DataFrame(data)
+    datapath1 = 'data3.txt'
+    dfdata.to_csv(datapath1)
+
+注意：可能会出现打不开文件问题，可以参考有关链接：http://docs.h5py.org/en/latest/quick.html
+--------------------- 
+作者：Bill_zhang5 
+来源：CSDN 
+原文：https://blog.csdn.net/bill_zhang5/article/details/79095985 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+
