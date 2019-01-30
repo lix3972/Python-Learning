@@ -1,0 +1,23 @@
+pytorch 如何加载部分预训练模型
+https://blog.csdn.net/amds123/article/details/63684716
+pretrained_dict =...
+
+model_dict = model.state_dict()
+
+
+# 1. filter out unnecessary keys
+pretrained_dict = {k: v for k, vin pretrained_dict.items() if k inmodel_dict}
+
+
+# 2. overwrite entries in the existing state dict
+model_dict.update(pretrained_dict)
+
+
+# 3. load the new state dict
+model.load_state_dict(model_dict)
+--------------------- 
+作者：算法学习者 
+来源：CSDN 
+原文：https://blog.csdn.net/amds123/article/details/63684716 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+========================================================================
