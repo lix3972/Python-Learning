@@ -1,3 +1,5 @@
+pytorch官网-加载预训练模型 https://pytorch.org/docs/stable/torchvision/models.html
+=========================================================================================
 pytorch中的pre-train函数模型引用及修改（增减网络层，修改某层参数等）
 https://blog.csdn.net/whut_ldz/article/details/78845947
 
