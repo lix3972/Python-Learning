@@ -1,0 +1,118 @@
+Pytorch在训练过程中常见的问题
+https://oldpan.me/archives/pytorch-conmon-problem-in-training
+
+1 Input type (CUDAFloatTensor) and weight type (CPUFloatTensor) should be the same
+
+仔细看错误信息，CUDA和CPU，输入数据x和模型中的权重值类型不一样，一般来说是因为模型的参数不在GPU中，而输入数据在GPU中，通过添加model.cuda()将模型转移到GPU上以解决这个问题。
+2 Input type (CUDADoubleTensor) and weight type (CUDAFloatTensor) should be the same
+
+根据错误信息，显然Input类型和模型的权重类型不一致，一个为Double一个为float,通过对输入数据Tensor(x)进行x.float()将输入数据和模型权重类型一致，或者将模型权重的类型转化为Double也可以解决问题。
+3 size mismatch at d:\pytorch\pytorch\torch\lib\thc\generic/THCTensorMathBlas.cu:243
+
+很明显，size不匹配，原因有很多，请检查卷积核的尺寸和输入尺寸是否匹配，padding数是否正确。
+4 expected CPU tensor (got CUDA tensor)
+
+期望得到CPU类型张量，得到的却是CUDA张量类型。
+很典型的错误，例如计算图中有的参数为cuda型有的参数却是cpu型就会遇到这样的错误。
+
+>>> import torch
+>>> from torch.autograd import Variable
+>>> a = torch.Tensor([1])
+>>> b = torch.Tensor([2])
+>>> a = Variable(a)
+>>> b = Variable(b)
+>>> a.requires_grad = True
+>>> b = b.type(torch.cuda.FloatTensor)
+>>> c = a + b   # 这里a和b两个张量不在同一个空间一个在cpu中另一个在gpu中因此会引发错误
+Traceback (most recent call last):
+  File "C:\Users\dell\Anaconda3\envs\my-pytorch\lib\site-packages\IPython\core\interactiveshell.py", line 2862, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+  File "<ipython-input-16-60f555c9e9aa>", line 1, in <module>
+    c = a + b
+  File "C:\Users\dell\Anaconda3\envs\my-pytorch\lib\site-packages\torch\autograd\variable.py", line 813, in __add__
+    return self.add(other)
+  File "C:\Users\dell\Anaconda3\envs\my-pytorch\lib\site-packages\torch\autograd\variable.py", line 319, in add
+    return self._add(other, False)
+  File "C:\Users\dell\Anaconda3\envs\my-pytorch\lib\site-packages\torch\autograd\variable.py", line 313, in _add
+    return Add.apply(self, other, inplace)
+  File "C:\Users\dell\Anaconda3\envs\my-pytorch\lib\site-packages\torch\autograd\_functions\basic_ops.py", line 17, in forward
+    return a.add(b)
+TypeError: add received an invalid combination of arguments - got (torch.cuda.FloatTensor), but expected one of:
+ * (float value)
+      didn't match because some of the arguments have invalid types: (!torch.cuda.FloatTensor!)
+ * (torch.FloatTensor other)
+      didn't match because some of the arguments have invalid types: (!torch.cuda.FloatTensor!)
+ * (torch.SparseFloatTensor other)
+      didn't match because some of the arguments have invalid types: (!torch.cuda.FloatTensor!)
+ * (float value, torch.FloatTensor other)
+ * (float value, torch.SparseFloatTensor other)
+
+5 input is not contiguous at /pytorch/torch/lib/THC/generic/THCTensor.c:227
+
+     batch_size, c, h, w = input.size()
+     rh, rw = (2, 2)
+     oh, ow = h * rh, w * rw
+     oc = c // (rh * rw)
+     out = input.view(batch_size, rh, rw, oc, h, w)
+     out = out.permute(0, 3, 4, 1, 5, 2)
+     out = out.view(batch_size, oc, oh, ow)
+
+invalid argument 2: input is not contiguous at /pytorch/torch/lib/THC/generic/THCTensor.c:227
+
+上述在第7行报错，报错原因是由于浅拷贝。上面式子中input为Variable变量。
+
+上面第5行 out = out.permute(0, 3, 4, 1, 5, 2) 时执行了浅拷贝，out只是复制了out从input传递过来的指针，也就是说input要改变out也要随之改变。
+
+解决方法是，在第6行的时候使用tensor.contiguous()，第6行改成:out = out.permute(0, 3, 4, 1, 5, 2).contiguous()即可。
+6 是否开启torch.backends.cudnn.benchmark
+
+默认这个选项是关闭的，对于我们大多数的任务来说，在开启的时候cudnn可以根据当前的设置来选择最优算法来加快训练速度。但是如果我们的输入在每一次的iterate的时候都进行变化，那么benchmark就会在每次iterate的时候重新选择最优算法，当选选择是需要花费时间的，反而速度会变慢，也就是说，如果我们每次训练的输入数据的size不变，那么开启这个就会加快我们的训练速度：
+torch.backends.cudnn.benchmark = True
+7 Assertion `cur_target >= 0 && cur_target < n_classes’ failed.
+
+我们在分类训练中经常遇到这个问题，一般来说在我们网络中输出的种类数和你label设置的种类数量不同的时候就会出现这个错误。
+
+但是，Pytorch有个要求，在使用CrossEntropyLoss这个函数进行验证时label必须是以0开始的：
+
+假如我这样:
+
+    self.classes = [0, 1, 2, 3]
+
+我的种类有四类，分别是0.1.2.3，这样就没有什么问题，但是如果我写成：
+
+    self.classes = [1, 2, 3, 4]
+
+这样就会报错。
+8 out of memory at /opt/conda/conda-bld/pytorch_1524590031827/work/aten/src/THC/generic/THCStorage.cu:58
+
+兄弟，啥也不说了，这不是Bug，这是显存不够了~
+
+解决方法：1、换小的batch；2、图片尺寸换成小的；3、图片格式从float换成int；4、换大显存、大显卡；5、优化程序，每一步都释放掉多余的占用显存的变量；
+9 an illegal memory access was encountered at /opt/conda/conda-bld/pytorch_1525909934016/work/aten/src/THC/generated/../THCReduceAll.cuh:339
+
+在GPU训练中不正确的内存访问，有可能是程序问题也有可能是当前驱动不兼容的问题：
+
+因为cuda运行是异步的，所以我们的错误信息可能没有那么准确，为此我们将环境变量 CUDA_LAUNCH_BLOCKING=1 设为1,在当前的terminal中执行  CUDA_LAUNCH_BLOCKING=1 python train.py—— (train.py是你要执行的.py文件)，再次执行就可以查看到当前出错的代码行。
+
+仔细检查当前的代码，查看是否有内存的不正确访问，最常见的是索引超出范围。
+
+如果不是代码问题，那么有可能是当前的pytorch版本和你的显卡型号不兼容，或者cudnn的库不兼容的问题。可以挑选出错误代码段对其进行简单的测试观察有没有错误即可。
+10 view()操作只能用在连续的tensor下
+
+利用is_contiguous()判断该tensor在内存中是否连续，不连续的话使用.contiguous()使其连续。
+11 RuntimeError: some of the strides of a given numpy array are negative. This is currently not supported, but will be added in future releases.
+
+这个原因是因为程序中操作的numpy中有使用负索引的情况：image[…, ::-1]。
+
+解决办法比较简单，加入image这个numpy变量引发了错误，返回image.copy()即可。因为copy操作可以在原先的numpy变量中创造一个新的不适用负索引的numpy变量。
+12 invalid argument 0: Sizes of tensors must match except in dimension 1. Got 14 and 13 in dimension 0 at /home/prototype/Downloads/pytorch/aten/src/THC/generic/THCTensorMath.cu:83
+
+这种错误有两种可能：
+
+    你输入的图像数据的维度不完全是一样的，比如是训练的数据有100组，其中99组是256*256，但有一组是384*384，这样会导致Pytorch的检查程序报错
+    另外一个则是比较隐晦的batchsize的问题，Pytorch中检查你训练维度正确是按照每个batchsize的维度来检查的，比如你有1000组数据（假设每组数据为三通道256px*256px的图像），batchsize为4，那么每次训练则提取(4,3,256,256)维度的张量来训练，刚好250个epoch解决(250*4=1000)。但是如果你有999组数据，你继续使用batchsize为4的话，这样999和4并不能整除，你在训练前249组时的张量维度都为(4,3,256,256)但是最后一个批次的维度为(3,3,256,256)，Pytorch检查到(4,3,256,256) != (3,3,256,256)，维度不匹配，自然就会报错了，这可以称为一个小bug。
+
+那么怎么解决，针对第一种，很简单，整理一下你的数据集保证每个图像的维度和通道数都一直即可。第二种来说，挑选一个可以被数据集个数整除的batchsize或者直接把batchsize设置为1即可。
+13 RuntimeError: std::exception
+
+这种错误并没有提示错误信息，属于在计算时内部的错误，所以来源是未知的。很有可能是pytorch的bug，最好dubug一下看看错误代码发生在哪儿，可以尝试下改变input的维度，或者将计算平台(CPU和GPU)切换一下，有些Pytorch的算子会存在bug，采用相同功能的不同的算子可能也会解决这个问题。
