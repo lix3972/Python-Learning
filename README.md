@@ -38,4 +38,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 26、txt文件创建：f=open('txtName','a');f.write('Hello.\n');f.close();\n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。  
 27、pytroch中的torch.nn:https://blog.csdn.net/dgyuanshaofeng/article/details/80345103  
 28、mat读取方法：  
-29、系统时间： time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
+29、系统时间： time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())   
+30、python文件名和文件路径操作：https://www.cnblogs.com/yanglang/p/7610838.html
