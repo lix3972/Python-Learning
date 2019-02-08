@@ -2,6 +2,10 @@ txtName='tryCreatTxt.txt'
 f=open(txtName,'w')  # 'a'=追加
 f.write('Hello.')  # \n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。
 f.close()
+推荐用with：
+with open() as f:
+    f.write('Hello.')
+    
 
 http://www.runoob.com/python/python-func-open.html
 模式	描述
