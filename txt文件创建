@@ -5,7 +5,9 @@ f.close()
 推荐用with：
 with open(txtName,'a') as f:
     f.write('Hello.')
-    
+来自cycle_gan的visualizer.py 第168行：
+    with open(self.log_name, "a") as log_file:
+        log_file.write('%s\n' % message)
 
 http://www.runoob.com/python/python-func-open.html
 模式	描述
