@@ -11,3 +11,6 @@
 device = torch.device('cuda:0')
 G = gen()
 G = G.to(device)
+
+加载模型时，切换gpu。设gpu=0。
+G_L.load_state_dict(torch.load(G_L_path,map_location=lambda storage, loc: storage.cuda(gpu)))
