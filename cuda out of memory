@@ -2,7 +2,7 @@ pytorch 减小显存消耗，优化显存使用，避免out of memory
 lix经验：
 1、全局变量用cuda，容易导致out of memory。
     出现症状：计算一张图时没有问题，到第31张图时提示out of memory。
-    解决方法：在cuda计算时，加cuda，计算完毕后，变量后加.cpu().data.numpy()。必要的话，需要加.squeeze(0)或.unsqueeze(0)来调整维度。
+    解决方法：在cuda计算时，加cuda，计算完毕后，全局变量后加.cpu().data.numpy()。必要的话，需要加.squeeze(0)或.unsqueeze(0)来调整维度。
     例如：   a_val = a.squeeze(0).cpu().data.numpy()  # a为加cuda()的tensor。
             a_val = np.mean(a_val.transpose(1,2,0), 2)
     squeeze(0)中的0表示在第0个维度上调整。transpose()表示转置。
