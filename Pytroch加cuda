@@ -7,3 +7,7 @@
   网络 = 网络.cuda()
 3、loss  .cuda()
   loss=loss.cuda()
+=======================
+device = torch.device('cuda:0')
+G = gen()
+G = G.to(device)
