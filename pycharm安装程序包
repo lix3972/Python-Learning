@@ -12,6 +12,39 @@ Pycharm导入程序包步骤：
 
 注意：程序包的名称大多与import 后的名称一致，下面列出不一致的程序包：
 skimage: scikit-image(直接搜skimage也能找到)
+=========================================================================================================
+在Ubuntu下，每次都要找到 pycharm.sh所在的文件夹，执行./pycharm.sh，非常麻烦。最好能创建一个快捷方式。
+
+Ubuntu的快捷方式都放在/usr/share/applications，首先在该目录下创建一个Pycharm.desktop
+启用root权限，新打开一个终端，键入sudo -i
+输入密码即可
+再键入:
+sudo gedit /usr/share/applications/Pycharm.desktop
+然后在打开的文档中输入以下内容，注意Exec和Icon需要找到正确的路径
+[Desktop Entry]
+Type=Application
+Name=Pycharm
+GenericName=Pycharm3
+Comment=Pycharm3:The Python IDE
+Exec='/XXX/pycharm-community-2018.1/bin/pycharm.sh' %f
+Icon=/XXX/pycharm-community-2018.1/bin/pycharm.png
+Terminal=pycharm
+Categories=Pycharm;
+
+然后再到/usr/share/applications中找到相应的启动，进入后锁定到启动器即可。
+--------------------- 
+作者：sinat_28752257 
+来源：CSDN 
+原文：https://blog.csdn.net/sinat_28752257/article/details/79767854 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+-------------------------------------------------------------------------------------
+Ubuntu下Pycharm图标变为问号
+问题：删除了旧版本的Pycharm，图标出现问题。
+解决：删除原来相应的.desktop。
+快捷方式一般都是.desktop后缀。
+在两个地方有：～/.local/share/applications/ ;;; 或/usr/share/applications/
+ls 查看文件名
+sudo rm qq* -i 逐条删除qq开头的文件
 
 =========================================================================================================
 
