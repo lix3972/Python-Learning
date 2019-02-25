@@ -1,5 +1,7 @@
 pycharm官网下载： https://www.jetbrains.com/pycharm/download/#section=linux  
-
+安装：sudo snap install [pycharm-professional|pycharm-community] --classic
+或解压后进入bin，用sh pycharm.sh运行。
+===============加载包===============================================================================
 File==>settings==>Project:***下 Project Interpreter ==>右边“+”(滚动条右边加号) ==>在搜索栏写入需要安装的包，
 选中待安装的包，点左下角Install Package，等待安装完成。
 注意：勾选右下角Specify version，选择需要安装的版本。如果跟系统安装版本不同可能会报错。  
