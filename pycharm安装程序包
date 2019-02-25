@@ -32,6 +32,7 @@ Terminal=pycharm
 Categories=Pycharm;
 
 然后再到/usr/share/applications中找到相应的启动，进入后锁定到启动器即可。
+可以双击打开应用，然后锁定到启动器。
 --------------------- 
 作者：sinat_28752257 
 来源：CSDN 
