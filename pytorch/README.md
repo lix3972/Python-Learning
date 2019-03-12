@@ -7,4 +7,5 @@
 5、iter() 函数：python函数，用来生成迭代器。  
 6、pytorch加载模型GPU_CPU切换：torch.load('gen_500000.pkl', map_location=lambda storage, loc: storage.cuda(0))   
 7、not callable错误：原因：在pytorch中定义网络的时候，采用逐层定义网络时，在结尾添加逗号，将定义的网络层转变成了元组。解决方案：去掉结尾逗号。  
-8、Pytorch在训练过程中常见的问题：https://oldpan.me/archives/pytorch-conmon-problem-in-training
+8、Pytorch在训练过程中常见的问题：https://oldpan.me/archives/pytorch-conmon-problem-in-training  
+9、pytorch单边加0的padding方式：torch.nn.functional.pad(x, (0, 1, 0, 1), 'constant', 0)
