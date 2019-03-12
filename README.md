@@ -39,4 +39,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 27、pytroch中的torch.nn:https://blog.csdn.net/dgyuanshaofeng/article/details/80345103  
 28、mat读取方法：  
 29、系统时间： time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())   
-30、python文件名和文件路径操作：https://www.cnblogs.com/yanglang/p/7610838.html; os.path.join(path1,path2)
+30、python文件名和文件路径操作：https://www.cnblogs.com/yanglang/p/7610838.html; os.path.join(path1,path2)  
+31、得到文件夹中的文件名后，按照文件名中的数字排序：A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))  
