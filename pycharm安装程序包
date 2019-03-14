@@ -1,6 +1,9 @@
 pycharm官网下载： https://www.jetbrains.com/pycharm/download/#section=linux  
 安装：sudo snap install [pycharm-professional|pycharm-community] --classic
 或解压后进入bin，用sh pycharm.sh运行。
+
+pycharm加载File==>settings==>Project:***下 Project Interpreter：点下三角，选择"Show All";在弹出的“Project Interpreters”对话框中点右上“+”号。
+在弹出的“Add Python Interpreter”中选“Existing environment"，点”..."按钮，选择“/home/自己的用户/anaconda3/bin/python",点”ok".
 ===============加载包===============================================================================
 File==>settings==>Project:***下 Project Interpreter ==>右边“+”(滚动条右边加号) ==>在搜索栏写入需要安装的包，
 选中待安装的包，点左下角Install Package，等待安装完成。
