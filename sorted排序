@@ -4,4 +4,7 @@ mseAll=[]
 mseAll.append((modelNumber,mseAB))
 sortedMse=sorted(mseAll, key=lambda mse: mse[1])
 按照mseAB排序，modelNumber要与mseAB对应改变顺序。
-key=lambda 可能是关键词，mse:mse[1]中，mse是自己选取的暂时变量名(可任意设置)，[1]对应的是(modelNumber,mseAB)中的mseAB。
+key=lambda 可能是关键词，mse:mse[1]中，mse是自己选取的暂时变量名(可任意设置)，[1]对应的是(modelNumber,mseAB)中的mseAB。  
+------------------------------------------------------------------------------------------
+self.A_paths = sorted(self.A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))   
+按照 IMG_ 后面，. 前面的数字排序
