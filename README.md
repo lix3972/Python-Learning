@@ -3,6 +3,8 @@
 1.https://docs.python.org/library/  Python库参考手册，可以选择python版本(目前默认3.7).https://docs.python.org/3/library/  
 2.https://docs.python.org/  Python文档网站，网站地址会自动变成https://docs.python.org/3/  
 https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html  
+## tensorflow : https://tensorflow.google.cn/api_docs/python/tf
+## pytorch : https://pytorch.org/tutorials/
 
 ## python 学习笔记  
 ###### 可以通过自带文档获得帮助，例如：   
