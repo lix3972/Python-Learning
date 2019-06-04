@@ -10,3 +10,4 @@
 8、Pytorch在训练过程中常见的问题：https://oldpan.me/archives/pytorch-conmon-problem-in-training  
 9、pytorch单边加0的padding方式：torch.nn.functional.pad(x, (0, 1, 0, 1), 'constant', 0)  
 10、加减层： http://www.cnblogs.com/marsggbo/p/8781774.html  
+11、list转换成tensor: torch.cat(list) 或 torch.stack(list)  
