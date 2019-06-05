@@ -11,3 +11,4 @@
 9、pytorch单边加0的padding方式：torch.nn.functional.pad(x, (0, 1, 0, 1), 'constant', 0)  
 10、加减层： http://www.cnblogs.com/marsggbo/p/8781774.html  
 11、list转换成tensor: torch.cat(list) 或 torch.stack(list)  
+12、数据指定位数输出：print('abc={0:.5f},{1:.2f}'.format(12.432145,23.456));结果abc=12.43215,23.46
