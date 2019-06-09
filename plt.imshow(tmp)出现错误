@@ -1,0 +1,2 @@
+plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：
+plt.imshow(tmp.tolist())
