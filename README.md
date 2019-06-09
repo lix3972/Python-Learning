@@ -45,3 +45,4 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 31、得到文件夹中的文件名后，按照文件名中的数字排序（IMG_1.jpg;IMG_2.jpg;……）：  
 A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))    
 32、linux软硬链接：软链接: ln –s 源文件 目标文件; 硬链接: ln 源文件 目标文件，没有参数-s
+33、plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：plt.imshow(tmp.tolist())
