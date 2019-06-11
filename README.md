@@ -36,7 +36,8 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 22、python __getitem__()方法理解：当实例对象做P[key]运算时，就会调用类中的__getitem__()方法。   
 23、pytorch中的torch.utils.data.Dataset和torch.utils.data.DataLoader: https://blog.csdn.net/geter_CS/article/details/83378786  
 24、PIL.Image与numpy.array之间的相互转换：img = numpy.array(im);img = Image.fromarray(img.astype('uint8')).convert('RGB')    
-25、sorted排序：mseAll.append((modelNumber,mseAB));        sortedMse=sorted(mseAll, key=lambda mse: mse[1])  
+25、sorted排序：mseAll.append((modelNumber,mseAB));  sortedMse=sorted(mseAll, key=lambda mse: mse[1])  ;  
+按照'img_'和'.'中间的数值进行排序：self.A_paths = sorted(self.A_paths, key=lambda n: int(n.split('img_')[1].split('.')[0]))
 26、txt文件创建：f=open('txtName','a');f.write('Hello.\n');f.close();\n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。  
 27、pytroch中的torch.nn:https://blog.csdn.net/dgyuanshaofeng/article/details/80345103  
 28、mat读取方法：  
@@ -46,3 +47,5 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))    
 32、linux软硬链接：软链接: ln –s 源文件 目标文件; 硬链接: ln 源文件 目标文件，没有参数-s  
 33、plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：plt.imshow(tmp.tolist())  
+34、os路径相关：文件是否存在 if not os.path.exists(dir_save_pic): os.makedirs(dir_save_pic); 获取路径中的文件名os.path.basename(path);  
+生成文件路径os.path.join(dir_save, 'pic')
