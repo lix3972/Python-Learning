@@ -1,4 +1,7 @@
 plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：
 
 前面显示图片，将之前的显示图片窗口关掉。
-plt.imshow(tmp.tolist())
+tmp=prediction[0]['masks'][0, 0].mul(255).byte().cpu().numpy()
+plt.imshow(tmp)  # 可以显示图片
+
+plt.imshow(tmp.tolist())  # 也可以显示图片
