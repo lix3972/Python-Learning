@@ -1,3 +1,5 @@
+https://www.pytorchtutorial.com/pytorch-for-numpy-users/
+
 类型（Types）
 Numpy 	PyTorch
 np.ndarray 	torch.Tensor
