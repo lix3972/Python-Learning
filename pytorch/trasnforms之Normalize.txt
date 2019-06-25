@@ -1,3 +1,23 @@
+torchvision中Transform的normalize参数含义
+
+比如原来的tensor是三个维度的，值在0到1之间，那么经过以下变换之后就到了-1到1区间。 
+
+transforms.Normalize((.5,.5,.5),(.5,.5,.5))
+
+原本以为第一个参数应该是（0，0，0）才是归一化到均值为0。但是通过transforms的源码发现：
+
+``input[channel] = (input[channel] - mean[channel]) / std[channel]``
+
+也就是说(（0,1）-0.5）/0.5=(-1,1)。
+
+即参数为变换过程，而非最终结果。
+--------------------- 
+作者：York1996 
+来源：CSDN 
+原文：https://blog.csdn.net/york1996/article/details/82711593 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+====================================================================================
+
 import torch  
 import torchvision.transforms as T  
 
