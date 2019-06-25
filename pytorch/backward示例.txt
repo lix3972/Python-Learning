@@ -1,0 +1,11 @@
+import torch  
+v = torch.tensor([0.5, 1.0, 2.0], dtype=torch.float)
+x = torch.tensor([1,2,3], dtype=torch.float, requires_grad=True)  
+y = x ** 2   
+y.backward(v)  
+print(x.grad)  
+
+结果：
+tensor([ 1.,  4., 12.])
+分析：y=x^2，求导y'=2x,x=[1,2,3]代入,y'=[2,4,6],返回x.grad=v*y'=[0.5*2, 1*2, 2*6]
+
