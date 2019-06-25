@@ -1,7 +1,7 @@
 ###### 知乎：PyTorch实战指南 https://zhuanlan.zhihu.com/p/29024978
 
 1、volatile和requires_grad: volatile=True相当于requires_grad=False,requires_grad=True 要求梯度  
-2、y.data.norm():求y的标准差  
+2、y.data.norm():求y的标准差.三个2 .norm()结果，sqrt(2^2+2^2+2^2)   
 3、pytorch的坑：https://www.jianshu.com/p/1fa86e060e5a  
 4、transforms.Normalize：设tensor是三个维度的，值在0到1之间变换到-1到1区间。transforms.Normalize((.5,.5,.5),(.5,.5,.5))
 5、iter() 函数：python函数，用来生成迭代器。  
@@ -12,3 +12,4 @@
 10、加减层： http://www.cnblogs.com/marsggbo/p/8781774.html  
 11、list转换成tensor: torch.cat(list) 或 torch.stack(list)  
 12、数据指定位数输出：print('abc={0:.5f},{1:.2f}'.format(12.432145,23.456));结果abc=12.43215,23.46  
+
