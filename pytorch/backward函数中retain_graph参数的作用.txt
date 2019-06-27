@@ -1,0 +1,49 @@
+https://www.cnblogs.com/luckyscarlett/p/10555632.html
+retain_graph参数的作用
+
+官方定义：
+
+retain_graph (bool, optional) – If False, the graph used to compute the grad will be freed. Note that in nearly all cases setting this option to True is not needed and often can be worked around in a much more efficient way. Defaults to the value of create_graph.
+
+大意是如果设置为False，计算图中的中间变量在计算完后就会被释放。但是在平时的使用中这个参数默认都为False从而提高效率，和creat_graph的值一样。
+
+具体看一个例子理解：
+
+假设一个我们有一个输入x，y = x **2, z = y*4，然后我们有两个输出，一个output_1 = z.mean()，另一个output_2 = z.sum()。然后我们对两个output执行backward。
+复制代码
+
+ 1 import torch
+ 2 x = torch.randn((1,4),dtype=torch.float32,requires_grad=True)
+ 3 y = x ** 2
+ 4 z = y * 4
+ 5 print(x)
+ 6 print(y)
+ 7 print(z)
+ 8 loss1 = z.mean()
+ 9 loss2 = z.sum()
+10 print(loss1,loss2)
+11 loss1.backward()    # 这个代码执行正常，但是执行完中间变量都free了，所以下一个出现了问题
+12 print(loss1,loss2)
+13 loss2.backward()    # 这时会引发错误
+
+复制代码
+
+程序正常执行到第12行，所有的变量正常保存。但是在第13行报错：
+
+RuntimeError: Trying to backward through the graph a second time, but the buffers have already been freed. Specify retain_graph=True when calling backward the first time.
+
+分析：计算节点数值保存了，但是计算图x-y-z结构被释放了，而计算loss2的backward仍然试图利用x-y-z的结构，因此会报错。
+
+因此需要retain_graph参数为True去保留中间参数从而两个loss的backward()不会相互影响。正确的代码应当把第11行以及之后改成
+
+1 # 假如你需要执行两次backward,先执行第一个的backward，再执行第二个backward
+2 loss1.backward(retain_graph=True)# 这里参数表明保留backward后的中间参数。
+3 loss2.backward() # 执行完这个后，所有中间变量都会被释放，以便下一次的循环
+4  #如果是在训练网络optimizer.step() # 更新参数
+
+create_graph参数比较简单，参考官方定义：
+
+    create_graph (bool, optional) – If True, graph of the derivative will be constructed, allowing to compute higher order derivative products. Defaults to False.
+
+
+附参考学习的链接如下，并对作者表示感谢：retain_graph参数的作用.
