@@ -1,4 +1,5 @@
-###### 知乎：PyTorch实战指南 https://zhuanlan.zhihu.com/p/29024978
+###### pytorch官网: https://pytorch.org/tutorials/
+###### 知乎：PyTorch实战指南 https://zhuanlan.zhihu.com/p/29024978  
 
 1、volatile和requires_grad: volatile=True相当于requires_grad=False,requires_grad=True 要求梯度  
 2、y.data.norm():求y的标准差.三个2 .norm()结果，sqrt(2^2+2^2+2^2)   
