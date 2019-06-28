@@ -48,4 +48,5 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 32、linux软硬链接：软链接: ln –s 源文件 目标文件; 硬链接: ln 源文件 目标文件，没有参数-s  
 33、plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：plt.imshow(tmp.tolist())  
 34、os路径相关：文件是否存在 if not os.path.exists(dir_save_pic): os.makedirs(dir_save_pic); 生成文件路径os.path.join(dir_save, 'pic')
-获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]
+获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
+35、pycharm-project下面文件夹不显示：file->settings->project stucture->右侧选+Add Content Root,选中项目文件夹，点ok
