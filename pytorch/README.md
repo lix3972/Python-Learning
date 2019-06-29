@@ -1,4 +1,5 @@
-###### pytorch官网: https://pytorch.org/tutorials/
+###### PyTorch官网: https://pytorch.org/tutorials/
+###### PyTorch中文手册：https://github.com/zergtant/pytorch-handbook
 ###### 知乎：PyTorch实战指南 https://zhuanlan.zhihu.com/p/29024978  
 
 1、volatile和requires_grad: volatile=True相当于requires_grad=False,requires_grad=True 要求梯度  
