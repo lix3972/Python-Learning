@@ -1,7 +1,20 @@
-model = models.vgg16(pretrained=True)
-removed = list(model.classifier.children())[:-1]
-model.classifier = torch.nn.Sequential(*removed)
-model.add_module('fc', torch.nn.Linear(4096, out_num))
+实测：
+model_ft = models.resnet101(pretrained=True)
+### removed = list(model.classifier.children())[:-1] # classifier错误，没有classifier
+removed = list(model_ft.children())
+model = torch.nn.Sequential(*removed[:-1])
+model.add_module('fc', torch.nn.Linear(2048, out_num))
+# 调试时，网络结构是变化了，但是能不能用还没有验证。因为不知道在forward()中还有些什么。较为保险的做法直接将最后一层修改，方法如下：
+# 在调用resnet101后，最后一层本是一个全链接层，标签为fc，将其改为三个全链接层并添加了激活函数ReLU()
+num_ftrs = model_ft.fc.in_features
+model_ft.fc = nn.Sequential(
+    nn.Linear(num_ftrs, 1024),
+    nn.ReLU(True),
+    nn.Linear(1024, 512),
+    nn.ReLU(True),
+    nn.Linear(512, 1)
+)
+
 
 https://www.cnblogs.com/marsggbo/p/8781774.html
 增减layer
