@@ -1,3 +1,13 @@
+model = models.vgg16(pretrained=True)
+
+removed = list(model.classifier.children())[:-1]
+
+model.classifier = torch.nn.Sequential(*removed)
+
+model.add_module('fc', torch.nn.Linear(4096, out_num))
+
+
+
 https://www.cnblogs.com/marsggbo/p/8781774.html
 增减layer
 1.增加layer
