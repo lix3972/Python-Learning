@@ -1,0 +1,32 @@
+https://www.cnblogs.com/marsggbo/p/8781774.html
+增减layer
+1.增加layer
+
+增加layer很方便，可以使用model.add_module('layer name', layer)。  
+2.删减layer
+
+删减layer很少用的到，之所以我会有这么一个需求，是因为我需要使用vgg做迁移学习,而且需要修改最后的输出。
+
+而vgg由两个部分组成：features和classifier，这两个部分都是torch.nn.Sequential，所以不能单独对其中某一层做修改。
+
+而如果对整个Sequential做修改，那么这个模型的参数会被初始化，而我又需要保留这些参数，所以才想到是否有办法把最后一层fc删掉，重新再填加一个不就行了？具体方法如下：
+
+以vgg16为例，假设我们现在只需要对classifier的最后一层全连接层的输出做修改：
+
+model = models.vgg16(pretrained=True)
+
+先看一下未做修改之前的classifier的参数：
+
+    截取要修改的layer之前的网络
+
+removed = list(model.classifier.children())[:-1]
+
+model.classifier = torch.nn.Sequential(*removed)
+
+    添加fc层
+
+model.add_module('fc', torch.nn.Linear(4096, out_num)) # out_num是你希望输出的数量 
+
+此时我们看一下model以及classifier的参数有什么变化：
+
+这达到了我预期的效果。
