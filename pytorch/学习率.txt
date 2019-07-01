@@ -11,7 +11,7 @@ def train_model(model, criterion, optimizer, scheduler, num_epochs=25):
 	scheduler.step()
 
 ==================================================================================
-https://pytorch.org/docs/stable/optim.html?highlight=torch%20optim%20lr_scheduler#torch.optim.lr_scheduler.ExponentialLR
+https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
 pytorch->doc->torch.optim->How to adjust Learning Rate
 把学习率的调整放到optimizer里边，如上面程序部分第三行，lr_scheduler.StepLR中有optimizer_conv，学习率通过optimizer_conv调整。
 把学习率调整函数输出给exp_lr_scheduler，将其传递给scheduler,在训练前，使用scheduler.step()更新学习率，在更新参数optimizer_conv时会使用更新的学习率更新网络参数。
