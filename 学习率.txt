@@ -1,0 +1,19 @@
+网络学习率变化策略  https://www.jianshu.com/p/67232264ffbd
+学习率变化有以下几种常见策略：
+base_lr是基础学习率，这里设置为0.1。
+1）“step” - 需要设置一个stepsize参数，返回base_lr * gamma ^ ( floor ( iter / stepsize ) )，iter为当前迭代次数，gamma设置为0.4，stepsize设置100；
+
+2）“multistep”  和step相近，但是需要stepvalue参数，step是均匀等间隔变化，而multistep是根据stepvalue的值进行变化；
+
+3）“fixed” - 保持base_lr不变；
+
+4）“exp” - 返回base_lr * gamma ^ iter, iter为当前迭代次数，gamma设置为0.98；
+
+5）“poly” - 学习率进行多项式误差衰减，返回 base_lr* ( 1 - iter / max_iter ) ^ ( power )，power设置为0.9；
+
+6）“sigmoid” - 学习率进行sigmod函数衰减，返回 base_lr ( 1/ 1＋exp ( gamma * ( iter - stepsize ) ) )，gamma设置为0.05，stepsize设置为200；
+
+作者：Wangcy
+链接：https://www.jianshu.com/p/67232264ffbd
+来源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
