@@ -1,0 +1,55 @@
+python模块collections中namedtuple()的理解
+Python中存储系列数据，比较常见的数据类型有list，除此之外，还有tuple数据类型。相比与list，tuple中的元素不可修改，在映射中可以当键使用。tuple元组的item只能通过index访问，collections模块的namedtuple子类不仅可以使用item的index访问item，还可以通过item的name进行访问。可以将namedtuple理解为c中的struct结构，其首先将各个item命名，然后对每个item赋予数据。
+
+    coordinate = namedtuple('Coordinate', ['x', 'y'])
+    co = coordinate(10,20)
+    print co.x,co.y
+    print co[0],co[1]
+    co = coordinate._make([100,200])
+    print co.x,co.y
+    co = co._replace(x = 30)
+    print co.x,co.y
+
+
+results:
+
+10 20
+10 20
+100 200
+30 200
+
+
+    from collections import namedtuple
+     
+    websites = [
+        ('Sohu', 'http://www.google.com/', u'张朝阳'),
+        ('Sina', 'http://www.sina.com.cn/', u'王志东'),
+        ('163', 'http://www.163.com/', u'丁磊')
+    ]
+     
+    Website = namedtuple('Website', ['name', 'url', 'founder'])
+     
+    for website in websites:
+        website = Website._make(website)
+        print website
+
+
+results:
+
+Website(name='Sohu', url='http://www.google.com/', founder=u'\u5f20\u671d\u9633')
+Website(name='Sina', url='http://www.sina.com.cn/', founder=u'\u738b\u5fd7\u4e1c')
+Website(name='163', url='http://www.163.com/', founder=u'\u4e01\u78ca')
+
+
+参考资料：
+
+[1] http://blog.csdn.net/kongxx/article/details/51553362
+
+[2] http://www.jb51.net/article/88144.htm
+
+[3] http://www.jb51.net/article/48771.htm
+--------------------- 
+作者：何雷 
+来源：CSDN 
+原文：https://blog.csdn.net/helei001/article/details/52692128 
+版权声明：本文为博主原创文章，转载请附上博文链接！
