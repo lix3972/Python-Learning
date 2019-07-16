@@ -50,5 +50,5 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 34、os路径相关：文件是否存在 if not os.path.exists(dir_save_pic): os.makedirs(dir_save_pic); 生成文件路径os.path.join(dir_save, 'pic')
 获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
 35、pycharm-project不显示文件夹：file->settings->project stucture->右侧+Add Content Root,选中项目文件夹，ok。  
-36、各种paddle网络模型总结：https://www.paddlepaddle.org.cn/documentation/docs/zh/1.5/user_guides/models/index_cn.html#permalink-2-paddlecv
+36、各种paddle网络模型总结：https://www.paddlepaddle.org.cn/documentation/docs/zh/1.5/user_guides/models/index_cn.html#permalink-2-paddlecv  
 37、CUDA_VISIBLE_DEVICES使用方法：系统环境参数，选择哪些gpu可见，哪些隐藏。可用os.environ['CUDA_VISIBLE_DEVICES']=gpu_id调整
