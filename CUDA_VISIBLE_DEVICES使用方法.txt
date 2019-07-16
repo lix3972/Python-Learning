@@ -1,0 +1,7 @@
+# CUDA_VISIBLE_DEVICES使用方法：
+os.environ['CUDA_VISIBLE_DEVICES'] = opts.gpu_id
+device = torch.device( 'cuda' if torch.cuda.is_available() else 'cpu' )
+# 如果opts.gpu_id = 3, device = cuda:3.
+# os.environ ： 系统环境变量 
+# CUDA_VISIBLE_DEVICES ：关于GPU的系统环境变量参数。如果CUDA_VISIBLE_DEVICES=3，那么在系统中就认为只有编号为3的GPU这一个gpu可用，如果使用的话，它就是cuda:0.
+# 如果CUDA_VISIBLE_DEVICES=2,1,0 则cuda:0调用编号为2的gpu，cuda:1调用编号1，cuda:0调用编号0.
