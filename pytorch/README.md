@@ -15,3 +15,4 @@
 11、list转换成tensor: torch.cat(list) 或 torch.stack(list)  
 12、数据指定位数输出：print('abc={0:.5f},{1:.2f}'.format(12.432145,23.456));结果abc=12.43215,23.46  
 13、backward中retain_graph参数的作用：如果设置为False，计算图中的中间变量在计算完后就会被释放。
+14、torchvision.datasets.FashionMNIST中target_transform参数：数据集中对真值的变换。
