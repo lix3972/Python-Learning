@@ -3,7 +3,7 @@
 #### https://www.jetbrains.com/toolbox/app/ 
 下载jetbrains-Toolbox App.  
 (1)建议解压到/opt文件夹下(官方建议，不放在/opt下似乎也能运行)，用命令：   
-#### sudo tar -xzf jetbrains-toolbox-1.14.5179.tar.gz -C /opt  
+#### sudo tar -xzf jetbrains-toolbox-1.14.5179.tar.gz -C /opt  # 版本不同文件名要修改
 (2)到/opt文件夹下，进入jetbrains-toolbox-1.14.5179文件夹，双击“jetbrains-toolbox” 运行该工具箱,或用命令：
 #### sudo ./jetbrains-toolbox (在/opt/jetbrains-toolbox-1.14.5179/文件夹中)  
 (3)在工具箱的选项中，选择需要安装的程序 pycharm 进行安装.  
