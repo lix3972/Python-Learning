@@ -18,8 +18,9 @@
 #### rm -r ~/.PyCharmCE2018.1
 
 (3)删除快捷方式(jetbrains-pycharm*.desktop)  
-可能在下列位置找到该文件：～/.local/share/applications/ ; 或/usr/share/applications/;  
-#### ls (查看文件夹下的文件以及文件夹)
+可能在下列位置找到该文件：～/.local/share/applications/ ; 或/usr/share/applications/; 
+#### cd ～/.local/share/applications/
+#### ls (查看文件夹下的文件以及文件夹,可以有选择的查看 ls jet*)
 #### sudo rm /usr/share/applications/jetbrains-pycharm-ce.desktop; 或 sudo rm jet* -i 逐条删除jet开头文件
 
 # 3、使用
