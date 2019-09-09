@@ -52,3 +52,4 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 35、pycharm-project不显示文件夹：file->settings->project stucture->右侧+Add Content Root,选中项目文件夹，ok。  
 36、各种paddle网络模型总结：https://www.paddlepaddle.org.cn/documentation/docs/zh/1.5/user_guides/models/index_cn.html#permalink-2-paddlecv  
 37、CUDA_VISIBLE_DEVICES使用方法：系统环境参数，选择哪些gpu可见，哪些隐藏。可用os.environ['CUDA_VISIBLE_DEVICES']=gpu_id调整  
+38、anaconda瘦身:conda clean -p 删除没用的包; conda clean -t 删除下载下来的 tar 包。  
