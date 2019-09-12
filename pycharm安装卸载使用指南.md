@@ -207,5 +207,5 @@ F12键将焦点从编辑器移到最后一个聚焦的工具窗口。
 
 # 4 常见错误
 1、console无法使用
-疑似与Ipython冲突
+疑似与Ipython冲突。  
 菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。
