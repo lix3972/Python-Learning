@@ -123,3 +123,4 @@ yield组合：
         a=n
 
  其中要注意的是python3时已经没有xrange()了，在python3中，range()就是xrange()了，你可以在python3中查看range()的类型，它已经是个<class 'range'>了，而不是一个list了，毕竟这个是需要优化的。 
+ 
