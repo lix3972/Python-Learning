@@ -29,7 +29,7 @@ for t in range(500):
     grad_w2 = h_relu.T.dot(grad_y_pred)  # 64*100转置100×64 矩阵乘64×10 结果100×10
     grad_h_relu = grad_y_pred.dot(w2.T)  # 64*10矩阵乘 100*10转置10*100  结果64*100
     grad_h = grad_h_relu.copy()          # 64*100
-    grad_h[h < 0] = 0
+    grad_h[h < 0] = 0                    # h<0得到一个[True …… False ……]矩阵,grad_h中元素位置对应为True时，值赋为0
     grad_w1 = x.T.dot(grad_h)            # 1000*100
 
     # Update weights
