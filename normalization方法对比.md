@@ -1,7 +1,7 @@
-https://www.zhihu.com/question/68730628
+https://www.zhihu.com/question/68730628  
 BN和IN其实本质上是同一个东西，只是IN是作用于单张图片，但是BN作用于一个batch。  
 ===========================================================================
-https://blog.csdn.net/liuxiao214/article/details/81037416
+https://blog.csdn.net/liuxiao214/article/details/81037416  
 1、综述
 1.1 论文链接
 
@@ -40,7 +40,7 @@ https://github.com/switchablenorms/Switchable-Normalization
     instanceNorm在图像像素上，对HW做归一化，用在风格化迁移；
     GroupNorm将channel分组，然后再做归一化；
     SwitchableNorm是将BN、LN、IN结合，赋予权重，让网络自己去学习归一化层应该使用什么方法。
-![figure3](https://github.com/lix3972/papers/blob/master/CycleGan/picture/Figure3.png)    
+![figure1](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/1.png)    
 2、Batch Normalization
 
 首先，在进行训练之前，一般要对数据做归一化，使其分布一致，但是在深度神经网络训练过程中，通常以送入网络的每一个batch训练，这样每个batch具有不同的分布；此外，为了解决internal covarivate shift问题，这个问题定义是随着batch normalizaiton这篇论文提出的，在训练过程中，数据分布会发生变化，对下一层网络的学习带来困难。
