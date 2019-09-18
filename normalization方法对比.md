@@ -184,14 +184,10 @@ BN注重对每个batch进行归一化，保证数据分布一致，因为判别�
 因此作者提出自适配归一化方法——Switchable Normalization（SN）来解决上述问题。与强化学习不同，SN使用可微分学习，为一个深度网络中的每一个归一化层确定合适的归一化操作。
 公式：
 
-![figure7](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/7.png)
-
-![figure8](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/8.png)
-
-![figure9](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/9.png)
-
+![figure7](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/7.png)  
+![figure8](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/8.png)   
+![figure9](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/9.png)  
 代码：
-
     def SwitchableNorm(x, gamma, beta, w_mean, w_var):
         # x_shape:[B, C, H, W]
         results = 0.
@@ -213,12 +209,9 @@ BN注重对每个batch进行归一化，保证数据分布一致，因为判别�
         results = gamma * x_normalized + beta
         return results
     
-结果比较：
-
-![figure10](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/10.png)
-
-![figure111](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/11.png)
-
+结果比较：  
+![figure10](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/10.png)  
+![figure111](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/11.png)  
 ————————————————  
 版权声明：本文为CSDN博主「夏洛的网」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。  
 原文链接：https://blog.csdn.net/liuxiao214/article/details/81037416  
