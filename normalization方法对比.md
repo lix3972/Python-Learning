@@ -219,6 +219,6 @@ BN注重对每个batch进行归一化，保证数据分布一致，因为判别�
 
 ![figure111](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/11.png)
 
-————————————————
-版权声明：本文为CSDN博主「夏洛的网」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/liuxiao214/article/details/81037416
+————————————————  
+版权声明：本文为CSDN博主「夏洛的网」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。  
+原文链接：https://blog.csdn.net/liuxiao214/article/details/81037416  
