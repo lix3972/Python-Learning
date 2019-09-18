@@ -94,10 +94,8 @@ batch normalization存在以下缺点：
     对batchsize的大小比较敏感，由于每次计算均值和方差是在一个batch上，所以如果batchsize太小，则计算的均值、方差不足以代表整个数据分布；
     BN实际使用时需要计算并且保存某一层神经网络batch的均值和方差等统计信息，对于对一个固定深度的前向神经网络（DNN，CNN）使用BN，很方便；但对于RNN来说，sequence的长度是不一致的，换句话说RNN的深度不是固定的，不同的time-step需要保存不同的statics特征，可能存在一个特殊sequence比其他sequence长很多，这样training时，计算很麻烦。（参考于https://blog.csdn.net/lqfarmer/article/details/71439314）
 
-与BN不同，LN是针对深度网络的某一层的所有神经元的输入按以下公式进行normalize操作。
-
-![Fomula_BN](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/3.png)
-
+与BN不同，LN是针对深度网络的某一层的所有神经元的输入按以下公式进行normalize操作。  
+![Fomula_BN](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/3.png)  
 BN与LN的区别在于：
 
     LN中同层神经元输入拥有相同的均值和方差，不同的输入样本有不同的均值和方差；
@@ -106,7 +104,7 @@ BN与LN的区别在于：
 
     所以，LN不依赖于batch的大小和输入sequence的深度，因此可以用于batchsize为1和RNN中对边长的输入sequence的normalize操作。
 
-LN用于RNN效果比较明显，但是在CNN上，不如BN。
+LN用于RNN效果比较明显，但是在CNN上，不如BN。  
 
     def ln(x, b, s):
         _eps = 1e-5
@@ -114,7 +112,7 @@ LN用于RNN效果比较明显，但是在CNN上，不如BN。
         output = s[None, :] * output + b[None,:]
         return output
 
-用在四维图像上，
+用在四维图像上，  
 
     def Layernorm(x, gamma, beta):
 
@@ -132,9 +130,9 @@ LN用于RNN效果比较明显，但是在CNN上，不如BN。
 
 BN注重对每个batch进行归一化，保证数据分布一致，因为判别模型中结果取决于数据整体分布。
 
-但是图像风格化中，生成结果主要依赖于某个图像实例，所以对整个batch归一化不适合图像风格化中，因而对HW做归一化。可以加速模型收敛，并且保持每个图像实例之间的独立。
-![figure4](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/4.png)
-代码：
+但是图像风格化中，生成结果主要依赖于某个图像实例，所以对整个batch归一化不适合图像风格化中，因而对HW做归一化。可以加速模型收敛，并且保持每个图像实例之间的独立。  
+![figure4](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/4.png)  
+代码：  
 
     def Instancenorm(x, gamma, beta):
 
@@ -151,15 +149,12 @@ BN注重对每个batch进行归一化，保证数据分布一致，因为判别�
 5、Group Normalization
 主要是针对Batch Normalization对小batchsize效果差，GN将channel方向分group，然后每个group内做归一化，算(C//G)*H*W的均值，这样与batchsize无关，不受其约束。
 
-公式：
+公式：  
+![figure5](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/5.png)  
+伪代码：  
+![figure6](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/6.png)  
 
-![figure5](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/5.png)
-
-伪代码：
-
-![figure6](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/6.png)
-
-代码：
+代码：  
 
     def GroupNorm(x, gamma, beta, G=16):
 
@@ -182,12 +177,12 @@ BN注重对每个batch进行归一化，保证数据分布一致，因为判别�
     第二，一个深度神经网络往往包含几十个归一化层，通常这些归一化层都使用同样的归一化操作，因为手工为每一个归一化层设计操作需要进行大量的实验。
 
 因此作者提出自适配归一化方法——Switchable Normalization（SN）来解决上述问题。与强化学习不同，SN使用可微分学习，为一个深度网络中的每一个归一化层确定合适的归一化操作。
-公式：
-
+公式：  
 ![figure7](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/7.png)  
 ![figure8](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/8.png)   
 ![figure9](https://github.com/lix3972/Python-Learning/blob/master/picture/Normalization%E6%80%BB%E7%BB%93/9.png)  
-代码：
+代码： 
+
     def SwitchableNorm(x, gamma, beta, w_mean, w_var):
         # x_shape:[B, C, H, W]
         results = 0.
