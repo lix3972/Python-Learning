@@ -63,8 +63,8 @@ https://github.com/switchablenorms/Switchable-Normalization
 
 加入缩放平移变量的原因是：保证每一次数据经过归一化后还保留原有学习来的特征，同时又能完成归一化操作，加速训练。 这两个参数是用来学习的参数。
 
-import numpy as np
-
+    import numpy as np  
+    
     def Batchnorm(x, gamma, beta, bn_param):
 
         # x_shape:[B, C, H, W]
