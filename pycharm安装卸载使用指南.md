@@ -214,5 +214,5 @@ F12键将焦点从编辑器移到最后一个聚焦的工具窗口。
 疑似与Ipython冲突。  
 菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。  
 2、调试时无法看到变量值(connecting data)  
-在用PyCharm进行Python代码调试查看具体变量时，会随机遇到一直显示collecting data，到最后报错Timeout waiting for response，在界面中看不到变量内部的内容.
+在用PyCharm进行Python代码调试查看具体变量时，会随机遇到一直显示collecting data，到最后报错Timeout waiting for response，在界面中看不到变量内部的内容.  
 在PyCharm，打开File -> settings界面，settings对话框:Build,execution,Deployment->Python Debugger，右边设置项中勾选“Gevent compatible”即可。
