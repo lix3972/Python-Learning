@@ -209,7 +209,10 @@ F12键将焦点从编辑器移到最后一个聚焦的工具窗口。
 版权声明：本文为CSDN博主「MR_labo」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。  
 原文链接：https://blog.csdn.net/weixin_37292229/article/details/81737194  
 
-# 4 常见错误
-1、console无法使用
+# 4 常见错误  
+1、console无法使用  
 疑似与Ipython冲突。  
-菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。
+菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。  
+2、调试时无法看到变量值(connecting data)  
+在用PyCharm进行Python代码调试查看具体变量时，会随机遇到一直显示collecting data，到最后报错Timeout waiting for response，在界面中看不到变量内部的内容.
+在PyCharm，打开File -> settings界面，settings对话框:Build,execution,Deployment->Python Debugger，右边设置项中勾选“Gevent compatible”即可。
