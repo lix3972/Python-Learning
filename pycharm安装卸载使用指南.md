@@ -24,7 +24,7 @@
 #### sudo rm /usr/share/applications/jetbrains-pycharm-ce.desktop; 或 sudo rm jet* -i 逐条删除jet开头文件
 
 # 3、使用
-## (1)实用技巧1
+## 实用技巧1
 1.设置断点  
   在行号右边点鼠标左键添加断点，再点取消断点。在断点处右键有菜单，待研究。   
 2.选择整行    
@@ -44,7 +44,18 @@
   选中待更改变量名，Shift+F6 弹出的对话框中修改变量名,点refactor。则所有地方的该变量名全部更改。  
 9.TAB键  
   在待的修改命令前(没有空格)输入字符，在出现备选后续字符时按Tab键可以将光标后面的命令更改为选中命令。当在括号中输入字符完成后TAB键可以跳出括号(只有第一次输入时有用)。  
-## (2)实用技巧2
+
+# 4 常见错误  
+1、console无法使用  
+疑似与Ipython冲突。  
+菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。  
+2、调试时无法看到变量值(connecting data)  
+在用PyCharm进行Python代码调试查看具体变量时，会随机遇到一直显示collecting data，到最后报错Timeout waiting for response，在界面中看不到变量内部的内容.  
+在PyCharm，打开File -> settings界面，settings对话框:Build,execution,Deployment->Python Debugger，右边设置项中勾选“Gevent compatible”即可。
+
+
+
+# 实用技巧2
 0 快速查找文件
 开发项目时，文件数量越来越庞大，有时要在不同的文件之间来回切换，如果还是从左侧工程目录中按层级去查找的话，效率非常低效，通常，我们要用的都是最近查看过或编辑的文件，用快捷 Ctrl + E 可打开最近访问过的文件或者用 Ctrl+Shift+E打开最近编辑过的我文件。
 
@@ -75,15 +86,6 @@
 ————————————————    
 版权声明：本文为CSDN博主「liu志军」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。  
 原文链接：https://blog.csdn.net/lantian_123/article/details/78245514  
-
-
-# 4 常见错误  
-1、console无法使用  
-疑似与Ipython冲突。  
-菜单File -> settings。settings对话框：Console:去掉 Use Ipython if available 前面的对勾。  
-2、调试时无法看到变量值(connecting data)  
-在用PyCharm进行Python代码调试查看具体变量时，会随机遇到一直显示collecting data，到最后报错Timeout waiting for response，在界面中看不到变量内部的内容.  
-在PyCharm，打开File -> settings界面，settings对话框:Build,execution,Deployment->Python Debugger，右边设置项中勾选“Gevent compatible”即可。
 
 # 常用快捷键  
 常用快捷键  
