@@ -17,3 +17,4 @@
 13、backward中retain_graph参数的作用：如果设置为False，计算图中的中间变量在计算完后就会被释放。  
 14、torchvision.datasets.FashionMNIST中target_transform参数：数据集中对真值的变换。  
 15、自定义forward：详情参考 https://pytorch.org/docs/stable/notes/extending.html  
+16、tensor转置: 高维permute(),x = torch.randn(2, 3, 5),x.permute(2, 0, 1);两维transpose      
