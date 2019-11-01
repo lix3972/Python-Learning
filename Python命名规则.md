@@ -21,11 +21,11 @@
 结尾加下划线   
 ### 4.常用缩写
 
-  * function  --->  fn  
-  * text      --->  txt  
-  * object    --->  obj  
-  * count     --->  cnt  
-  * number    --->  num  
+   * function  --->  fn  
+   * text      --->  txt  
+   * object    --->  obj  
+   * count     --->  cnt  
+   * number    --->  num  
 
 # 下划线开头注意事项：  
 * 单下划线开头的成员变量叫保护变量，只有包含它的类或子类对象能访问，外部不能访问，也不能用from module import 导入。    
