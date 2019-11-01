@@ -22,7 +22,7 @@
 ### 4.常用缩写
 
     function  --->  fn  
-       * text      --->  txt  
+    text      --->  txt  
     object    --->  obj  
     number    --->  num  
 
