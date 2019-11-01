@@ -20,8 +20,7 @@
 ### 3.避免关键词冲突  
 结尾加下划线   
 ### 4.常用缩写
-
-    function  --->  fn  
+　　* function  --->  fn  
     text      --->  txt  
     object    --->  obj  
     number    --->  num  
