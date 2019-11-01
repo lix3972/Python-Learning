@@ -30,8 +30,8 @@
 * 双下划线开头的时私有成员，只有类对象自己能访问，子类都不能访问。  
 * 双下划线开头，双下划线结尾的时大多是系统定义的名字。  
 # 命名规则如图：
-注：普通变量可采用下划线分割的命名方式，也可采用驼峰式命名
-![naming_ruls](https://github.com/lix3972/Python-Learning/blob/master/picture/varNamingRules/PythonVarNamingRules.png "naming_ruls")
+注：普通变量可采用下划线分割的命名方式，也可采用驼峰式命名  
+![naming_ruls](https://github.com/lix3972/Python-Learning/blob/master/picture/varNamingRules/PythonVarNamingRules.png)  
 
 
 参考：  https://www.cnblogs.com/liuyanhang/p/11099897.html;    https://www.cnblogs.com/zhangyafei/p/10429426.html   
