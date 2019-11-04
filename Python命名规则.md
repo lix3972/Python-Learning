@@ -23,7 +23,10 @@
     function  --->  fn  
     text      --->  txt  
     object    --->  obj  
-    number    --->  num  
+    number    --->  num 
+    index     --->  idx
+    image     --->  img
+    label     --->  lbl
 
 # 下划线开头注意事项：  
 * 单下划线开头的成员变量叫保护变量，只有包含它的类或子类对象能访问，外部不能访问，也不能用from module import 导入。    
