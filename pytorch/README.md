@@ -19,3 +19,4 @@
 14、torchvision.datasets.FashionMNIST中target_transform参数：数据集中对真值的变换。  
 15、自定义forward：详情参考 https://pytorch.org/docs/stable/notes/extending.html  
 16、tensor转置: 高维permute(),x = torch.randn(2, 3, 5),x.permute(2, 0, 1);两维transpose      
+17、输出模型中间特征：参考https://github.com/lix3972/Python-Learning/blob/master/pytorch/code/FCN_easiest_master/FCN.py 中class VGGNet(VGG):……  
