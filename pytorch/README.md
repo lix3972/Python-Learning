@@ -21,5 +21,5 @@
 16、tensor转置: 高维permute(),x = torch.randn(2, 3, 5),x.permute(2, 0, 1);两维transpose      
 17、输出模型中间特征：参考https://github.com/lix3972/Python-Learning/blob/master/pytorch/code/FCN_easiest_master/FCN.py 中class VGGNet(VGG):……    
 18、tensor常用语法：https://www.cnblogs.com/kk17/p/10252238.html   
-19、tensor维度变化：https://www.cnblogs.com/taosiyu/p/11575005.html
- 
+19、tensor维度变化：https://www.cnblogs.com/taosiyu/p/11575005.html  
+20、条件赋值：b[a>0] = 1  
