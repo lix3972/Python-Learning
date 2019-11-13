@@ -3,6 +3,8 @@
     src_path = './try/source.png'
     path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file='source.png'
     file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
+获取路径中的文件名也可用 os.path.basename(path);
+去掉文件后缀名也可用 filename_nosuffix = filename.split('.')[0]
 ## 文件是否存在/生成文件夹 
     if not os.path.exists(dir_save_pic): 
         os.makedirs(dir_save_pic); 
