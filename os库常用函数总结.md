@@ -11,6 +11,7 @@
 ## 生成(合并)文件路径
 os.path.join(dir_save, 'pic')
 ## 遍历文件夹获得文件夹下文件名
+参考 https://www.runoob.com/python/os-walk.html
 os.walk() 方法用于通过在目录树中游走输出在目录中的文件名，向上或者向下。
 
 walk()方法语法格式如下：
