@@ -1,5 +1,0 @@
-import os
-src_path = './try/source.png'
-path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file='source.png'
-file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
-
