@@ -34,6 +34,7 @@ os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
 实例  
 
 以下实例演示了 walk() 方法的使用：  
+
         import os
         for root, dirs, files in os.walk(".", topdown=False):
             for name in files:
