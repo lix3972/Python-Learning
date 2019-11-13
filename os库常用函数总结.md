@@ -3,7 +3,7 @@
     src_path = './try/source.png'
     path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file='source.png'
     file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
-获取路径中的文件名也可用 os.path.basename(path);
+获取路径中的文件名也可用 os.path.basename(path);  
 去掉文件后缀名也可用 filename_nosuffix = filename.split('.')[0]
 ## 文件是否存在/生成文件夹 
     if not os.path.exists(dir_save_pic): 
@@ -11,7 +11,7 @@
 ## 生成(合并)文件路径
 os.path.join(dir_save, 'pic')
 ## 遍历文件夹获得文件夹下文件名
-参考 https://www.runoob.com/python/os-walk.html
+参考 https://www.runoob.com/python/os-walk.html  
 os.walk() 方法用于通过在目录树中游走输出在目录中的文件名，向上或者向下。
 
 walk()方法语法格式如下：
