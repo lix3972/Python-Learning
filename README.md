@@ -47,7 +47,7 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))    
 32、linux软硬链接：软链接: ln –s 源文件 目标文件; 硬链接: ln 源文件 目标文件，没有参数-s  
 33、plt.imshow(tmp)出现错误：'numpy.ndarray' object has no attribute 'mask'的解决方法：plt.imshow(tmp.tolist())  
-34、os路径相关：文件是否存在 if not os.path.exists(dir_save_pic): os.makedirs(dir_save_pic); 生成文件路径os.path.join(dir_save, 'pic')
+34、os路径相关：文件是否存在 if not os.path.exists(dir_save_pic): os.makedirs(dir_save_pic); 生成文件路径os.path.join(dir_save, 'pic')   
 35、pycharm-project不显示文件夹：file->settings->project stucture->右侧+Add Content Root,选中项目文件夹，ok。  
 36、各种paddle网络模型总结：https://www.paddlepaddle.org.cn/documentation/docs/zh/1.5/user_guides/models/index_cn.html#permalink-2-paddlecv  
 37、CUDA_VISIBLE_DEVICES使用方法：系统环境参数，选择哪些gpu可见，哪些隐藏。可用os.environ['CUDA_VISIBLE_DEVICES']=gpu_id调整  
