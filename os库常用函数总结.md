@@ -5,7 +5,7 @@ path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file=
 file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
 ## 文件是否存在/生成文件夹 
     if not os.path.exists(dir_save_pic): 
-      os.makedirs(dir_save_pic); 
+        os.makedirs(dir_save_pic); 
 ## 生成(合并)文件路径
 os.path.join(dir_save, 'pic')
 ## 遍历文件夹获得文件夹下文件名
@@ -30,17 +30,13 @@ os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
 
 返回值
 
-该方法没有返回值。
+该方法没有返回值。可以paths = os.walk(alp_path)，paths是一个生成器,paths.__next__()返回三个list(root, dirs, files)，
 实例
 
 以下实例演示了 walk() 方法的使用：
-
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
-
-import os
-for root, dirs, files in os.walk(".", topdown=False):
-    for name in files:
-        print(os.path.join(root, name))
-    for name in dirs:
-        print(os.path.join(root, name))
+        import os
+        for root, dirs, files in os.walk(".", topdown=False):
+            for name in files:
+                print(os.path.join(root, name))
+            for name in dirs:
+                print(os.path.join(root, name))
