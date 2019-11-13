@@ -1,8 +1,8 @@
 ## 从完整路径中获取目录、文件名、后缀名
-import os
-src_path = './try/source.png'
-path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file='source.png'
-file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
+    import os
+    src_path = './try/source.png'
+    path, file = os.path.split(src_path)  # 分离路径和文件path='./try', file='source.png'
+    file_name, suffix = os.path.splitext(file)  # 分离文件名和后缀file_name=source, suffix=.png
 ## 文件是否存在/生成文件夹 
     if not os.path.exists(dir_save_pic): 
         os.makedirs(dir_save_pic); 
