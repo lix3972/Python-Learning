@@ -30,10 +30,10 @@ os.walk(top[, topdown=True[, onerror=None[, followlinks=False]]])
 
 返回值
 
-该方法没有返回值。可以paths = os.walk(alp_path)，paths是一个生成器,paths.__next__()返回三个list(root, dirs, files)，
-实例
+该方法没有返回值。可以paths = os.walk(alp_path)，paths是一个生成器,paths.__next__()返回三个list(root, dirs, files)  
+实例  
 
-以下实例演示了 walk() 方法的使用：
+以下实例演示了 walk() 方法的使用：  
         import os
         for root, dirs, files in os.walk(".", topdown=False):
             for name in files:
