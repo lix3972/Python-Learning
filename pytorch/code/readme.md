@@ -12,6 +12,7 @@ ctx个人理解：对于非tensor(不需要梯度的变量)相当于一个该类
 读取RGBA图片，分离R,G,B,alp四个通道，alp变为tensor，条件赋值变为二值矩阵(0和255),用plt.imshow(mask.numpy(), cmap='gray')显示为灰度图。 
 ## two_layer_net_custom_function.py
 * 可以看到ReLU()的定义过程，包括前向和后向传播的定义。   
+
 Pytorch网站: https://github.com/pytorch/tutorials/blob/master/beginner_source/examples_autograd/two_layer_net_custom_function.py    
 github：https://pytorch.org/tutorials/beginner/examples_autograd/two_layer_net_custom_function.html#sphx-glr-beginner-examples-autograd-two-layer-net-custom-function-py    
 Pytorch帮助文档：https://pytorch.org/tutorials/beginner/pytorch_with_examples.html 示例之一  
