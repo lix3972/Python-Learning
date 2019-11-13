@@ -54,5 +54,5 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 38、anaconda瘦身:conda clean -p 删除没用的包; conda clean -t 删除下载下来的 tar 包。   
 39、once_differentiable作用：当你自定义的函数不可导时，在写backward函数时，就需要使用@once_differentiable。@staticmethod 及@once_differentiable用于不可导function的反向传播    
 40、Vgg网络结构：https://blog.csdn.net/u014106644/article/details/89091949    
-41、matplotlib：https://matplotlib.org/tutorials/
-42、os库_分离文件名和后缀：分离路径和文件:os.path.split(src_path)；分离文件名和后缀：os.path.splitext(file)。获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
+41、matplotlib：https://matplotlib.org/tutorials/  
+42、os库_分离文件名和后缀：分离路径和文件:os.path.split()；分离文件名和后缀：os.path.splitext()——程序示例见同名文件。获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
