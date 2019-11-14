@@ -2,6 +2,10 @@
  
 ## FCN_easiest_master
 全连接网络进行语义分割，主要借鉴其中将VGG网络的中间变量输出的方法，还有onehot.py函数。  
+## PoissonImageEdit
+计划将Poisson合成算法应用于网络中，需要能反向传播。
+* get_contour.py 得到mask(非0即1)的边界，边界在mask上。
+* get_outer_contour.py 得到的mask大一圈的边界，边界不在mask上，在mask外边一圈。
 ## homo_transform
 单应性变换(投影变换)的程序，其中的dislodge_zero.py中的类DislodgeZero，是第一次定义带有反向传播函数的类，其目的是为了避免除以零(在homo_transform.py中需要除法)，其功能是当输入的绝对值小于forward中指定的数值时让其等于指定值，反向传播时当输入的绝对值小于forward中指定的数值时让反向传播数值等于指定值。
 ## affine_fucntion.py
