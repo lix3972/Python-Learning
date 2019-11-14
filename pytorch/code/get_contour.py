@@ -15,7 +15,11 @@ mask_t = mask_t.unsqueeze(0)  # torch.Size([1, 1, 176, 176])
 conv1 = nn.Conv2d(1, 1, 3, 1, 1)
 a = torch.ones((1, 1, 3, 3), dtype=torch.float)
 a[0, 0, 1, 1] = 0
-conv1.weight.data = a
+# from Pytorch STN instance
+# Initialize the weights/bias with identity transformation
+#         self.fc_loc[2].weight.data.zero_()
+#         self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
+conv1.weight.data = a  # or: conv1.weight.data.copy_(a)
 maxpool1 = nn.MaxPool2d(3, 1, 1)
 m1 = conv1(mask_t)  # torch.Size([1, 1, 176, 176])
 contour_t = maxpool1(m1)  # torch.Size([1, 1, 176, 176])
