@@ -20,6 +20,7 @@ a[0, 0, 1, 1] = 0
 #         self.fc_loc[2].weight.data.zero_()
 #         self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
 conv1.weight.data = a  # or: conv1.weight.data.copy_(a)
+conv1.bias.data.zero_()
 maxpool1 = nn.MaxPool2d(3, 1, 1)
 m1 = conv1(mask_t)  # torch.Size([1, 1, 176, 176])
 contour_t = maxpool1(m1)  # torch.Size([1, 1, 176, 176])
