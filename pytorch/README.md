@@ -1,4 +1,5 @@
 ###### PyTorch官网: https://pytorch.org/tutorials/  
+###### 官方中文文档 https://pytorch.apachecn.org/  
 ###### PyTorch中文手册：https://github.com/zergtant/pytorch-handbook  
 ###### PyTorch常用模型：https://github.com/pytorch/vision/tree/master/torchvision/models
 ###### 知乎：PyTorch实战指南 https://zhuanlan.zhihu.com/p/29024978  
