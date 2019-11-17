@@ -1,4 +1,4 @@
-# This file in mySTN10/tryfils/
+# The path of this file is mySTN10/tryfils/try_backward_grad.py
 from PIL import Image
 import torchvision.transforms as transforms
 import torch
