@@ -21,7 +21,6 @@ class MyCap(torch.autograd.Function):
         input, = ctx.saved_tensors
         grad_input = grad_output.clone()
         grad_input[input < 0] = 0
-        grad_input[input > 1] = 0
         return grad_input
 
 
