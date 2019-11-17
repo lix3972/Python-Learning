@@ -5,6 +5,7 @@
 https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html  
 ## tensorflow : https://tensorflow.google.cn/api_docs/python/tf
 ## pytorch : https://pytorch.org/tutorials/
+官方中文文档 https://pytorch.apachecn.org/  
 
 ## python 学习笔记  
 ###### 可以通过自带文档获得帮助，例如：   
