@@ -57,4 +57,5 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 40、Vgg网络结构：https://blog.csdn.net/u014106644/article/details/89091949    
 41、matplotlib：https://matplotlib.org/tutorials/  
 42、os库_分离文件名和后缀：分离路径和文件:os.path.split()；分离文件名和后缀：os.path.splitext()——详见os库常用函数总结.md。获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
-43、膨胀与腐蚀算法：参考https://blog.csdn.net/whchang8/article/details/56834608 ； https://blog.csdn.net/qq_29540745/article/details/51931770
+43、膨胀与腐蚀算法：参考https://blog.csdn.net/whchang8/article/details/56834608 ； https://blog.csdn.net/qq_29540745/article/details/51931770    
+44、自定义卷积网络前向后向传播：c 的 https://blog.csdn.net/g11d111/article/details/83021651 ； python的 https://blog.csdn.net/oBrightLamp/article/details/84589545 (代码存入pytorch/code/convolution.py)
