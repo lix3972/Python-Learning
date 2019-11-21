@@ -96,26 +96,85 @@ def constrain(target, index, contuor, ngb_flag):
 
 def importing_gradients(src, tar, omega, contour, ngb_flag):
     ### output array
-    u_b = torch.zeros(omega.shape[0])
-    u_g = torch.zeros(omega.shape[0])
     u_r = torch.zeros(omega.shape[0])
+    u_g = torch.zeros(omega.shape[0])
+    u_b = torch.zeros(omega.shape[0])
     ### take laplacian
     for index in range(omega.shape[0]):
         ## apply each color channel
-        u_b[index] = lap_at_index(src[:, :, 0], omega[index], contour, ngb_flag[index]) \
+        u_r[index] = lap_at_index(src[:, :, 0], omega[index], contour, ngb_flag[index]) \
                       + constrain(tar[:, :, 0], omega[index], contour, ngb_flag[index])
         u_g[index] = lap_at_index(src[:, :, 1], omega[index], contour, ngb_flag[index]) \
                       + constrain(tar[:, :, 1], omega[index], contour, ngb_flag[index])
-        u_r[index] = lap_at_index(src[:, :, 2], omega[index], contour, ngb_flag[index]) \
+        u_b[index] = lap_at_index(src[:, :, 2], omega[index], contour, ngb_flag[index]) \
                       + constrain(tar[:, :, 2], omega[index], contour, ngb_flag[index])
 
-    return u_b, u_g, u_r
+    return u_r, u_g, u_b
+
+
+def lap_at_index_mixing(source, target, index, contuor, ngb_flag):
+    ## current location
+    i, j = index
+
+    ## gradient for source image
+    grad_right_src = float(ngb_flag[0] == True) * (source[i, j] - source[i, j + 1])
+    grad_left_src = float(ngb_flag[1] == True) * (source[i, j] - source[i, j - 1])
+    grad_bottom_src = float(ngb_flag[2] == True) * (source[i, j] - source[i + 1, j])
+    grad_up_src = float(ngb_flag[3] == True) * (source[i, j] - source[i - 1, j])
+
+    ## gradient for target image
+    grad_right_tar = float(ngb_flag[0] == True) * (target[i, j] - target[i, j + 1])
+    grad_left_tar = float(ngb_flag[1] == True) * (target[i, j] - target[i, j - 1])
+    grad_bottom_tar = float(ngb_flag[2] == True) * (target[i, j] - target[i + 1, j])
+    grad_up_tar = float(ngb_flag[3] == True) * (target[i, j] - target[i - 1, j])
+
+    val = [grad_right_src, grad_left_src, grad_bottom_src, grad_up_src]
+
+    if (abs(grad_right_src) < abs(grad_right_tar)):
+        val[0] = grad_right_tar
+
+    if (abs(grad_left_src) < abs(grad_left_tar)):
+        val[1] = grad_left_tar
+
+    if (abs(grad_bottom_src) < abs(grad_bottom_tar)):
+        val[2] = grad_bottom_tar
+
+    if (abs(grad_up_src) < abs(grad_up_tar)):
+        val[3] = grad_up_tar
+
+    return val[0] + val[1] + val[2] + val[3]
+
+
+def mixing_gradients(src, tar, omega, contour, ngb_flag):
+  ### output array
+  u_r = torch.zeros(omega.shape[0])
+  u_g = torch.zeros(omega.shape[0])
+  u_b = torch.zeros(omega.shape[0])
+
+
+  ### take laplacian
+  for index in range(omega.shape[0]):
+
+    ## apply each color channel
+    u_r[index] = lap_at_index_mixing(src[:, :, 0], tar[:, :, 0], omega[index], contour, ngb_flag[index]) \
+                + constrain(tar[:, :, 0], omega[index], contour, ngb_flag[index])
+    u_g[index] = lap_at_index_mixing(src[:, :, 1], tar[:, :, 1], omega[index], contour, ngb_flag[index]) \
+                + constrain(tar[:, :, 1], omega[index], contour, ngb_flag[index])
+    u_b[index] = lap_at_index_mixing(src[:, :, 2], tar[:, :, 2], omega[index], contour, ngb_flag[index]) \
+                + constrain(tar[:, :, 2], omega[index], contour, ngb_flag[index])
+
+
+  return u_r, u_g, u_b
 
 
 class GetPIE(torch.autograd.Function):
     @staticmethod
     def forward(ctx, src, mask, tar):  # mask size N, C, H, W
         ctx.save_for_backward(src, mask, tar)
+
+        method = 'import'
+        # method = 'mix'
+
         n, c, h, w = mask.shape
         if n > 1:
             print('The batch_size should be 1.')
@@ -138,7 +197,8 @@ class GetPIE(torch.autograd.Function):
         mask = mask.squeeze()
         src = src.squeeze().permute(1, 2, 0)
         tar = tar.squeeze().permute(1, 2, 0)
-        contour = (1 - mask) * erode_t.squeeze()
+        # contour = (1 - mask) * erode_t.squeeze()
+        contour = mask * erode_t.squeeze()
         omega = torch.nonzero(mask)
 
         ngb_flag = []
@@ -188,17 +248,19 @@ class GetPIE(torch.autograd.Function):
             if (ngb_flag[i][3]):
                 j = omega_yx[id_h - 1][id_w]
                 A[i, j] = -1
-        # return A, omega, omega_yx, ngb_flag
-        # return A
 
-        u_b, u_g, u_r = importing_gradients(src, tar, omega, contour, ngb_flag)
+        ## select process type
+        if (method == "import"):
+            u_r, u_g, u_b = importing_gradients(src, tar, omega, contour, ngb_flag)
+        if (method == "mix"):
+            u_b, u_g, u_r = mixing_gradients(src, tar, omega, contour, ngb_flag)
 
         Ainv = torch.inverse(A)
-        x_b = u_b.unsqueeze(0).mm(Ainv)
-        x_g = u_g.unsqueeze(0).mm(Ainv)
         x_r = u_r.unsqueeze(0).mm(Ainv)
+        x_g = u_g.unsqueeze(0).mm(Ainv)
+        x_b = u_b.unsqueeze(0).mm(Ainv)
 
-        x_b, x_g, x_r = x_b.squeeze(0), x_g.squeeze(0), x_r.squeeze(0)
+        x_r, x_g, x_b = x_r.squeeze(0), x_g.squeeze(0), x_b.squeeze(0)
 
         blended = tar.clone()
         overlapped = tar.clone()
@@ -207,9 +269,9 @@ class GetPIE(torch.autograd.Function):
             i, j = omega[index]
 
             ## normal
-            blended[i][j][2] = torch.clamp(x_b[index], 0.0, 1.0)
+            blended[i][j][0] = torch.clamp(x_b[index], 0.0, 1.0)
             blended[i][j][1] = torch.clamp(x_g[index], 0.0, 1.0)
-            blended[i][j][0] = torch.clamp(x_r[index], 0.0, 1.0)
+            blended[i][j][2] = torch.clamp(x_r[index], 0.0, 1.0)
 
             ## overlapping
             overlapped[i][j][0] = src[i][j][0]
@@ -229,9 +291,11 @@ class GetPIE(torch.autograd.Function):
 
 
 if __name__ == '__main__':
+    method = 'mix'  # import, mix
+
     mask_path = '/home/lix/mySTN11/datasets/try/mask.png'
     mask0 = Image.open(mask_path).convert('L')
-    plt.imshow(mask0, cmap='gray')
+    # plt.imshow(mask0, cmap='gray')
     mask = transforms.ToTensor()(mask0)
     src_path = '/home/lix/mySTN11/datasets/try/source.png'
     src0 = Image.open(src_path).convert('RGB')
@@ -245,9 +309,15 @@ if __name__ == '__main__':
     src.requires_grad_(True)
     tar.requires_grad_(True)
 
+    # ==== cuda ==============
+    # mask = mask.cuda()
+    # src = src.cuda()
+    # tar = tar.cuda()
+
     get_blended = GetPIE.apply
+    # get_blended = get_blended.cuda()
     blended = get_blended(src, mask.unsqueeze(0), tar)
-    save_data = blended
+    save_data = blended.cpu()
     output_dir = "/home/lix/mySTN11/datasets/try/blended.png"
     save_img = tensor2np_uint8(save_data, convert_image=False)
     plt.imsave(output_dir, save_img)
