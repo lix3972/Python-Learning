@@ -38,6 +38,30 @@ print(img.shape)
 img_tensor = transforms.ToTensor()(img) # 转换成tensor
 print(img_tensor)
 
+-------------------------------------------------
+# 关于通道数为1的图片的transforms.Normalize
+# 示例：transforms.Normalize([a,b,c],[d,e,f])
+# [a,b,c] 对应均值mean, a,b,c分别对应图像的三个通道，如果只有一个通道的灰度图像，只需要一个参数a
+# [d,e,f] 对应标准差std，a,b,c分别对应图像的三个通道，如果只有一个通道的灰度图像，只需要一个参数d
+
+import torch
+import torch.nn as nn
+from torchvision import datasets, transforms
+from global_varialbe import *
+
+bg = torch.zeros((10, 10), dtype=torch.float)
+fg = torch.ones(4, 4)
+com = bg
+com[3:7, 3:7] = fg
+mask = com
+mask.requires_grad_(True)
+# mask_img = transforms.ToPILImage(mask)
+
+mask_norm = transforms.Normalize([0.5], [0.5])(mask.unsqueeze(0))
+a = mask.unique()
+b = mask_norm.unique()
+print('ok')
+
 class torchvision.transforms.ToPILImage
 
 将shape为(C,H,W)的Tensor或shape为(H,W,C)的numpy.ndarray转换成PIL.Image，值不变。
