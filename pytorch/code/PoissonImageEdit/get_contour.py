@@ -14,7 +14,7 @@ import numpy as np
 
 
 
-class MyCap(torch.autograd.Function):
+class MyTruncate(torch.autograd.Function):
 
     """
 
@@ -96,7 +96,7 @@ conv1.bias.data.zero_()
 
 # maxpool1 = nn.MaxPool2d(3, 1, 1)
 
-my_cap = MyCap.apply
+my_truncate = MyTruncate.apply
 
 
 # 开始与tmp不同
@@ -112,7 +112,7 @@ plt.imshow(m1.squeeze().data.numpy(), cmap='gray')
 
 # contour_t = maxpool1(m1)  # torch.Size([1, 1, 176, 176])
 
-contour_t = my_cap(m1)
+contour_t = my_truncate(m1)
 
 contour_np = contour_t.squeeze().data.numpy()  # <class 'tuple'>: (176, 176)
 
