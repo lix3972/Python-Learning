@@ -6,8 +6,8 @@ from matplotlib import pyplot as plt
 import numpy as np
 from utils.image_show import plt_tensor, tensor2np_uint8
 
-
-class MyCap(torch.autograd.Function):
+# truncation n. 切掉顶端, 截头, 截短 【计】 截断; 截除 | truncate vt. 切去头端, 缩短,
+class MyTruncate(torch.autograd.Function):
     """
     https://pytorch.org/tutorials/beginner/examples_autograd/two_layer_net_custom_function.html#sphx-glr-beginner-examples-autograd-two-layer-net-custom-function-py
     在ReLU的基础上增加 > 1 输出 1
@@ -189,9 +189,9 @@ class GetPIE(torch.autograd.Function):
         #         self.fc_loc[2].bias.data.copy_(torch.tensor([1, 0, 0, 0, 1, 0], dtype=torch.float))
         conv1.weight.data = a  # or: conv1.weight.data.copy_(a)
         conv1.bias.data.zero_()
-        my_cap = MyCap.apply
+        my_truncate = MyTruncate.apply
         m1 = conv1(mask)  # torch.Size([1, 1, 176, 176])
-        erode_t = my_cap(m1)
+        erode_t = my_truncate(m1)
 
         # ==== mask = mask.squeeze() ================
         mask = mask.squeeze()
@@ -418,13 +418,13 @@ if __name__ == '__main__':
 # conv1.weight.data = a  # or: conv1.weight.data.copy_(a)
 # conv1.bias.data.zero_()
 # # maxpool1 = nn.MaxPool2d(3, 1, 1)
-# my_cap = MyCap.apply
+# my_truncate = MyTruncate.apply
 # m1 = conv1(mask_t)  # torch.Size([1, 1, 176, 176])
 # plt.subplot(223)
 # plt.imshow(m1.squeeze().data.numpy(), cmap='gray')
 #
 # # contour_t = maxpool1(m1)  # torch.Size([1, 1, 176, 176])
-# contour_t = my_cap(m1)
+# contour_t = my_truncate(m1)
 # contour_np = contour_t.squeeze().data.numpy()  # <class 'tuple'>: (176, 176)
 # plt.subplot(222)
 # plt.imshow(contour_np, cmap='gray')
