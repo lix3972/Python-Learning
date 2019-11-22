@@ -7,7 +7,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-class MyCap(torch.autograd.Function):
+class MyTruncate(torch.autograd.Function):
     """
     https://pytorch.org/tutorials/beginner/examples_autograd/two_layer_net_custom_function.html#sphx-glr-beginner-examples-autograd-two-layer-net-custom-function-py
     在ReLU的基础上增加 > 1 输出 1
@@ -65,7 +65,7 @@ class Multi(torch.autograd.Function):
 
 
 if __name__ == '__main__':
-    my_cap = MyCap.apply
+    my_truncate = MyTruncate.apply
     my_relu = MyReLU.apply
     multi = Multi.apply
 
@@ -80,16 +80,16 @@ if __name__ == '__main__':
     y_relu = b_relu * b_relu
     y_relu.backward(torch.ones(y_relu.shape))
 
-    a_cap = torch.tensor([1., 2., 1e-8, -1, -1e-8, 0])
-    a_cap.requires_grad_(True)
-    b_cap = my_cap(a_cap)
-    b_cap.requires_grad_(True)
-    y_cap = b_cap * b_cap
-    y_cap.backward(torch.ones(y_cap.shape))
+    a_truncate = torch.tensor([1., 2., 1e-8, -1, -1e-8, 0])
+    a_truncate.requires_grad_(True)
+    b_truncate = my_truncate(a_truncate)
+    b_truncate.requires_grad_(True)
+    y_truncate = b_truncate * b_truncate
+    y_truncate.backward(torch.ones(y_truncate.shape))
 
 
     # y_relu.backward(torch.ones(y_relu.shape))
     print('a.grad = ', a.grad)
     print('a_relu.grad = ', a_relu.grad)
-    print('a_cap.grad = ', a_cap.grad)
+    print('a_truncate.grad = ', a_truncate.grad)
     print('ok')
