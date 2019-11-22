@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-class MyCap(torch.autograd.Function):
+class MyTruncate(torch.autograd.Function):
     """
     https://pytorch.org/tutorials/beginner/examples_autograd/two_layer_net_custom_function.html#sphx-glr-beginner-examples-autograd-two-layer-net-custom-function-py
     在ReLU的基础上增加 > 1 输出 1
@@ -21,6 +21,7 @@ class MyCap(torch.autograd.Function):
         input, = ctx.saved_tensors
         grad_input = grad_output.clone()
         grad_input[input < 0] = 0
+        grad_input[input > 1] = 0
         return grad_input
 
 
@@ -47,13 +48,13 @@ a[0, 0, 1, 1] = 0
 conv1.weight.data = a  # or: conv1.weight.data.copy_(a)
 conv1.bias.data.zero_()
 # maxpool1 = nn.MaxPool2d(3, 1, 1)
-my_cap = MyCap.apply
+my_truncate = MyTruncate.apply
 m1 = conv1(mask_t)  # torch.Size([1, 1, 176, 176])
 plt.subplot(223)
 plt.imshow(m1.squeeze().data.numpy(), cmap='gray')
 
 # contour_t = maxpool1(m1)  # torch.Size([1, 1, 176, 176])
-contour_t = my_cap(m1)
+contour_t = my_truncate(m1)
 contour_np = contour_t.squeeze().data.numpy()  # <class 'tuple'>: (176, 176)
 plt.subplot(222)
 plt.imshow(contour_np, cmap='gray')
