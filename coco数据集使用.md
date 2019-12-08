@@ -92,7 +92,5 @@ MS COCO 数据集主页(连不上)：http://mscoco.org/
     使用标注的信息画出来分割的结果
     """
     coco.showAnns(anns)
-
-
-
-print('ok')
+    plt.show()
+    print('ok')
