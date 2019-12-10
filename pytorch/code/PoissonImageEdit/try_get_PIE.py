@@ -214,8 +214,8 @@ class GetPIE(torch.autograd.Function):
         # 去除mask中logo到边缘的问题
         mask[:, :, 0, :] = 0
         mask[:, :, :, 0] = 0
-        mask[:, :, 175, :] = 0
-        mask[:, :, :, 175] = 0
+        mask[:, :, h-1, :] = 0
+        mask[:, :, :, w-1] = 0
         # CUDA
         conv1 = conv1.to(device)
         mask = mask.to(device)
