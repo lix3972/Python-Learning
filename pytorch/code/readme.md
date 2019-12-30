@@ -17,7 +17,7 @@ ctx个人理解：对于非tensor(不需要梯度的变量)相当于一个该类
 ## extract_mask.py
 读取RGBA图片，分离R,G,B,alp四个通道，alp变为tensor，条件赋值变为二值矩阵(0和255),用plt.imshow(mask.numpy(), cmap='gray')显示为灰度图。 
 ## my_module.py
-自定义带weights和bias的module，参数可更新。  
+自定义前向、反向传播并带weights和bias的module，参数可更新。  
 参考：https://pytorch.org/tutorials/beginner/nn_tutorial.html#      
 ## try_backward_grad.py
 测试自定义类的反向传播  
