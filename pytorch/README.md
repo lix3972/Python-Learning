@@ -26,3 +26,4 @@
 20、条件赋值：b[a>0] = 1  
 21、给网络权重赋值：conv1.weight.data.fill_(1.0)，conv1.weight.data[0,0,1,1]=0或conv1.weight.data=a, 其中conv1=nn.Conv2d(1,1,3,1),a = torch.ones((1,1,3,3), dtype=torch.float),a[0,0,1,1]=0.0  
 22、pytorch加载模型和初始化权重：https://www.jianshu.com/p/7a7d45b8e0ee
+23、返回指定值在tensor中的index序号(编号/位置索引)：torch.nonzero((tmp[:, 0] == 2) * (tmp[:, 1] == 3))  
