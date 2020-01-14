@@ -1,0 +1,17 @@
+https://anaconda.org/conda-forge/imageio
+
+conda install
+
+    linux-ppc64le  v2.6.1
+    linux-64  v2.6.1
+    win-32  v2.3.0
+    noarch  v2.3.0
+    linux-aarch64  v2.6.1
+    osx-64  v2.6.1
+    win-64  v2.6.1
+
+To install this package with conda run one of the following:
+conda install -c conda-forge imageio  # 安装成功
+conda install -c conda-forge/label/gcc7 imageio
+conda install -c conda-forge/label/broken imageio
+conda install -c conda-forge/label/cf201901 imageio 
