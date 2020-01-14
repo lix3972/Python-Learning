@@ -1,3 +1,10 @@
+https://www.scipy.org/install.html
+python -m pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
+python -m pip install --user scipy matplotlib ipython jupyter pandas sympy nose
+
+
+
+
 http://hao.jobbole.com/scipy/
 
     官方文档               https://docs.scipy.org/doc/
