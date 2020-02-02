@@ -1,6 +1,6 @@
 # import random
-### 1.random.sample(range(num1), num2)
-从range(num1)中随机挑选num2个数，顺序随机
+### 1.random.sample(list, num)
+从list中随机挑选num个数，顺序随机
 
     list = [0,1,2,3,4]
     rs = random.sample(list, 2)
