@@ -36,7 +36,9 @@ data_train_label=data_train.get('label')#取出字典里的label
 
 data_train_data=data_train.get('data')#取出字典里的data
 可以参考以下链接：https://docs.scipy.org/doc/scipy/reference/io.html
-
+保存方法：
+import scipy.io as scio
+scio.savemat('saveddata.mat', {'xi': xi,'yi': yi,'ui': ui,'vi': vi})
 2、mat4py库：(scipy.io读取1.3M大小的mat文件出错，mat4py可以读取)
 功能： 将Matlab 数据导入为基本的Python数据类型。矩阵是以行为组的存储方式(使用列表的列表)。 Matlab结构体Struct和元胞Cell 使用Python的词典表示。
 
