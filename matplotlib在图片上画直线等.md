@@ -22,7 +22,7 @@
     ax.imshow(im)
     plt.show()
     
-## 2. 鼠标划线--
+## 2. 鼠标划线--待测试
 参考：https://matplotlib.org/users/event_handling.html
 
     class LineBuilder:
