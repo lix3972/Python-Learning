@@ -1,4 +1,6 @@
-# 用matplotlib
+# matplotlib examples
+https://matplotlib.org/gallery/index.html
+
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
     from PIL import Image
