@@ -51,7 +51,9 @@
     
 程序源于：https://stackoverflow.com/questions/42578560/can-mouse-be-used-as-paintbrush-with-matplotlib
 
-## 3. patches
+## 3. 形状与路径——patches与path
 参考：https://blog.csdn.net/qq_27825451/article/details/82967904   
-参考：https://matplotlib.org/api/patches_api.html#module-matplotlib.patches   
+patches官方参考：https://matplotlib.org/api/patches_api.html#module-matplotlib.patches   
+path官方参考：https://matplotlib.org/api/path_api.html?highlight=path#module-matplotlib.path    
+个人理解：pathches是已经规定好的各种形状，path可以自由发挥的形状。path规定好形状后，结合pathches将形状添加到图形中。   
 
