@@ -2,6 +2,7 @@
 ## 1. 在RGB图上画线--程序测试可用  
 参考：https://matplotlib.org/gallery/index.html   
 读图片：  
+
     import matplotlib.pyplot as plt
     import matplotlib.patches as patches
     from PIL import Image
