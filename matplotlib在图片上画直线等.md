@@ -50,3 +50,8 @@
     plt.show()
     
 程序源于：https://stackoverflow.com/questions/42578560/can-mouse-be-used-as-paintbrush-with-matplotlib
+
+## 3. patches
+参考：https://blog.csdn.net/qq_27825451/article/details/82967904   
+参考：https://matplotlib.org/api/patches_api.html#module-matplotlib.patches   
+
