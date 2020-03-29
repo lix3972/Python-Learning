@@ -60,3 +60,4 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 43、膨胀与腐蚀算法：参考https://blog.csdn.net/whchang8/article/details/56834608 ； https://blog.csdn.net/qq_29540745/article/details/51931770    
 44、自定义卷积网络前向后向传播：c 的 https://blog.csdn.net/g11d111/article/details/83021651 ； python的 https://blog.csdn.net/oBrightLamp/article/details/84589545 (代码存入pytorch/code/convolution.py)  
 45、mat文件读取：import h5py；train_gt = h5py.File(fileName,'r')；train_gt = train_gt['outputD_map']；也可用import scipy.io as scio；data = scio.loadmat(data_path)；data_train_label=data_train.get('label')
+46、wget安装：遇到 No module named 'wget'错误，安装命令：pip install wget
