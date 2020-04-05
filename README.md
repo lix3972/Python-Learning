@@ -61,3 +61,8 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 44、自定义卷积网络前向后向传播：c 的 https://blog.csdn.net/g11d111/article/details/83021651 ； python的 https://blog.csdn.net/oBrightLamp/article/details/84589545 (代码存入pytorch/code/convolution.py)  
 45、mat文件读取：import h5py；train_gt = h5py.File(fileName,'r')；train_gt = train_gt['outputD_map']；也可用import scipy.io as scio；data = scio.loadmat(data_path)；data_train_label=data_train.get('label')
 46、wget安装：遇到 No module named 'wget'错误，安装命令：pip install wget
+47、PIL中灰度图convert问题：
+48、多个网络学习率要保持一致，否则会loss = nan：在COVID19_3/train4_classify.py中使用。
+49、nunpy array数据读写状态：mask.flags.writeable = True
+50、网络互不影响时detach()位置: output=net(input)后，下一步操作就在output.detach()。在COVID19_3/train4_classify.py中使用。
+51、nii文件读取：import nibabel as nib;imgs = nib.load(path_imgs);imgs = imgs.dataobj[:, :, num]。在COVID19中定义dataset使用。
