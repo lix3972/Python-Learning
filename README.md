@@ -59,10 +59,10 @@ A_paths = sorted(A_paths, key=lambda n: int(n.split('IMG_')[1].split('.')[0]))
 42、os库_分离文件名和后缀：分离路径和文件:os.path.split()；分离文件名和后缀：os.path.splitext()——详见os库常用函数总结.md。获取路径中的文件名os.path.basename(path);不要文件后缀名filename_nosuffix = filename.split('.')[0]  
 43、膨胀与腐蚀算法：参考https://blog.csdn.net/whchang8/article/details/56834608 ； https://blog.csdn.net/qq_29540745/article/details/51931770    
 44、自定义卷积网络前向后向传播：c 的 https://blog.csdn.net/g11d111/article/details/83021651 ； python的 https://blog.csdn.net/oBrightLamp/article/details/84589545 (代码存入pytorch/code/convolution.py)  
-45、mat文件读取：import h5py；train_gt = h5py.File(fileName,'r')；train_gt = train_gt['outputD_map']；也可用import scipy.io as scio；data = scio.loadmat(data_path)；data_train_label=data_train.get('label')
-46、wget安装：遇到 No module named 'wget'错误，安装命令：pip install wget
-47、PIL中灰度图convert问题：
-48、多个网络学习率要保持一致，否则会loss = nan：在COVID19_3/train4_classify.py中使用。
-49、nunpy array数据读写状态：mask.flags.writeable = True
-50、网络互不影响时detach()位置: output=net(input)后，下一步操作就在output.detach()。在COVID19_3/train4_classify.py中使用。
-51、nii文件读取：import nibabel as nib;imgs = nib.load(path_imgs);imgs = imgs.dataobj[:, :, num]。在COVID19中定义dataset使用。
+45、mat文件读取：import h5py；train_gt = h5py.File(fileName,'r')；train_gt = train_gt['outputD_map']；也可用import scipy.io as scio；data = scio.loadmat(data_path)；data_train_label=data_train.get('label')  
+46、wget安装：遇到 No module named 'wget'错误，安装命令：pip install wget  
+47、PIL中灰度图convert问题：convert('L') 大写字母L.详见： https://github.com/lix3972/Python-Learning/blob/master/PIL_image.md 
+48、多个网络学习率要保持一致，否则会loss = nan：在COVID19_3/train4_classify.py中使用。   
+49、nunpy array数据读写状态：mask.flags.writeable = True 在COVID19_3/train4_classify.py中class Covid19Dataset4(object)使用。  
+50、网络互不影响时detach()位置: output=net(input)后，下一步操作就在output.detach()。在COVID19_3/train4_classify.py中使用。   
+51、nii文件读取：import nibabel as nib;imgs = nib.load(path_imgs);imgs = imgs.dataobj[:, :, num]。在COVID19中定义dataset使用。   
