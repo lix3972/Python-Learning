@@ -8,7 +8,7 @@ convert('1') 数字1
     
 convert('L') 大写字母L  
 
-    img = Image.open(path).convert('L')  # 后面在转换为numpy则时0～255的数值  
+    img = Image.open(path).convert('L')  # 后面再转换为numpy则时0～255的数值  
     
 convert('RGB')  # RGB三基色图片  
 convert('RGBA')  # A对应alpha，类似于遮罩mask，有透明情况的图片用RGBA  
