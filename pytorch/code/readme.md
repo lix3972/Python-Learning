@@ -14,8 +14,10 @@ pytorch 0.4版本的(1.0版本的都打成包看不到代码了) 仿射变换的
 ctx个人理解：对于非tensor(不需要梯度的变量)相当于一个该类中的全局缓存变量，作用类似于self。对于tensor(需要梯度的变量)也是可以用其存储，但是需要用对应的函数进行调用。例如:在forward中ctx.save_for_backward(input, weight, bias)存储，在bakward中input, weight, bias = ctx.saved_tensors读取。还有ctx.needs_input_grad时一个布尔元组，指出输入(ctx.save_for_backward中的tensor)是否需要梯度计算(tensor对应的requires_grad属性是否为真)，。详情可以参考 https://pytorch.org/docs/stable/notes/extending.html  
 ## convolution.py
 网络节选的程序，自定义卷积网络的前向和后向传播。  
+## evaluation.py
+自定义评价指标。seg_eval函数输出分割评价指标PA(Pixel Accuracy), MPA(Mean PA), IOU(Intersection over Union)
 ## extract_mask.py
-读取RGBA图片，分离R,G,B,alp四个通道，alp变为tensor，条件赋值变为二值矩阵(0和255),用plt.imshow(mask.numpy(), cmap='gray')显示为灰度图。 
+读取RGBA图片，分离R,G,B,alp四个通道，alp变为tensor，条件赋值变为二值矩阵(0和255),用plt.imshow(mask.numpy(), cmap='gray')显示为灰度图。
 ## my_module.py
 自定义前向、反向传播并带weights和bias的module，参数可更新。  
 参考：https://pytorch.org/tutorials/beginner/nn_tutorial.html#      
