@@ -80,10 +80,12 @@ def seg_eval(mask_pre, mask_gt):
     pii_pij = 0
     intersection = 0
     union = 0
-    # ####################################################
+    # ##################################################################
     # 既然obj_ids是mask_gt含有的值 怎么会有一项为0 该项为0与含有该项的值是矛盾的
-    # ####################################################
-    # sub_class_num = 0  # 应对mask中少一项 既然obj_ids是mask_gt含有的值 怎么会有一项为0 该项为0与含有该项的值是矛盾的
+    # 出现分母为0的原因是如果i是torch.uint8类型，
+    # 在使用类似mask[i]方法时会出现其shape=(0, 1, 512, 512)并且mask[i].sum()=0的奇怪情况
+    # ##################################################################
+   
     for i in obj_ids:
         # pytorch没有找到逻辑与运算 用两步代替
         logic0 = masks_pre[i] + masks_gt[i]  # 都为1的地方相加=2, 1和0的位置=1, 0和0的位置=0
@@ -91,13 +93,8 @@ def seg_eval(mask_pre, mask_gt):
         # 求或
         p_or = logic0 > 0  # >0 为逻辑或的结果
         # pij_sum = masks_gt[i].sum().item() 注：不加item()会导致计算结果异常
-        # 需要处理 分母为0 的情况
         # 计算pii_pij分母为零 masks_gt[i].sum().item()=0意味着该图片不含该分类 求平均时应该算少一个分类
         # 计算Iou分母为零 union=0意味着预测值与真值同时为零 是预测准确的情况
-        # if masks_gt[i].sum().item() == 0:
-        #     pii_pij += 0
-        #     sub_class_num += 1
-        # else:
         pii_pij += p_and.sum().item() / masks_gt[i].sum().item()
 
         intersection += p_and.sum().item()
