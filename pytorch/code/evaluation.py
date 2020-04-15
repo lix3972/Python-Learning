@@ -35,17 +35,8 @@ def unnorm(x):  # 输入必须是三个维度(c, w, h)
     return (std * x.permute(1, 2, 0) + mean).permute(2, 0, 1)
 
 
-expr = """
-y = x
-c, w, h = y.shape
-'mean = th.tensor([{}])'.format(('0.5, '*c)[:-2])
-'std = th.tensor([{}])'.format(('0.5, ' * c)[:-2])
-y = (std * x.permute(1, 2, 0) + mean).permute(2, 0, 1)
-"""
-
-
 # 遇到mask标准化的问题
-def seg_eval(mask_pre, mask_gt):
+def seg_eval(mask_pre, mask_gt, background=False):
     """
     :param mask_pre: type(mask_pre)=torch.tensor, shape=(1, c, w, h) or (c, w, h), 预测mask
     :param mask_gt: mask真值,type,shape同上
@@ -69,6 +60,7 @@ def seg_eval(mask_pre, mask_gt):
     # 将统一好的mask在变回多通道的情况 此时mask_pre也均为整数了
     obj_ids = th.unique(mask_gt)  # obj_ids对于 mask_pre也是一样
     # obj_ids = obj_ids.to(dtype=th.int)
+
     masks_gt = mask_gt == obj_ids[:, None, None]  # dtype = torch.uint8, shape = (class, w, h),class包括背景0
     masks_pre = mask_pre == obj_ids[:, None, None]  # dtype = torch.uint8
 
@@ -80,12 +72,16 @@ def seg_eval(mask_pre, mask_gt):
     pii_pij = 0
     intersection = 0
     union = 0
+    pii_pij_list = []
+    intersection_list = []
+    union_list =[]
     # ##################################################################
     # 既然obj_ids是mask_gt含有的值 怎么会有一项为0 该项为0与含有该项的值是矛盾的
     # 出现分母为0的原因是如果i是torch.uint8类型，
     # 在使用类似mask[i]方法时会出现其shape=(0, 1, 512, 512)并且mask[i].sum()=0的奇怪情况
     # ##################################################################
     for i in obj_ids:
+
         # pytorch没有找到逻辑与运算 用两步代替
         logic0 = masks_pre[i] + masks_gt[i]  # 都为1的地方相加=2, 1和0的位置=1, 0和0的位置=0
         p_and = logic0 > 1  # >1即=2的 为逻辑与的结果,也是正确分类的部分pii
@@ -96,19 +92,38 @@ def seg_eval(mask_pre, mask_gt):
         # 计算pii_pij分母为零 masks_gt[i].sum().item()=0意味着该图片不含该分类 求平均时应该算少一个分类
         # 计算Iou分母为零 union=0意味着预测值与真值同时为零 是预测准确的情况
 
-        pii_pij += p_and.sum().item() / masks_gt[i].sum().item()
+        pii_pij_list.append(p_and.sum().item() / masks_gt[i].sum().item())
+        # pii_pij += p_and.sum().item() / masks_gt[i].sum().item()
 
-        intersection += p_and.sum().item()
+        intersection_list.append(p_and.sum().item())
+        # intersection += p_and.sum().item()
+
         # union += masks_pre[i] + masks_gt[i] - pii
-        union += p_or.sum().item()
-    PA = intersection / (w_pre*h_pre)
-    MPA = pii_pij / obj_ids.shape[0]
-    if union == 0:
-        IoU = 0
-    else:
-        IoU = intersection / union
+        union_list.append(p_or.sum().item())
+        # union += p_or.sum().item()
 
-    return PA, MPA, IoU
+    # PA = intersection / (w_pre*h_pre)
+    # MPA = pii_pij / obj_ids.shape[0]
+    # IoU = intersection / union
+    # 包含背景和前景
+    PA = sum(intersection_list) / (w_pre*h_pre)
+    MPA = sum(pii_pij_list) / len(pii_pij_list)
+    IoU = sum(intersection_list) / sum(union_list)
+    # 不含背景 只有前景 f表示前景, 如果只有背景那么输出-1
+    if len(obj_ids) > 1:
+        PAf = sum(intersection_list[1:]) / masks_gt[1:].sum().item()
+        MPAf = sum(pii_pij_list[1:]) / len(pii_pij_list[1:])
+        IoUf = sum(intersection_list[1:]) / sum(union_list[1:])
+    else:
+        PAf = -1
+        MPAf = -1
+        IoUf = -1
+    # 只有背景 b表示背景
+    PAb = intersection_list[0] / masks_gt[0].sum().item()
+    MPAb = pii_pij_list[0] / 1
+    IoUb = intersection_list[0] / union_list[0]
+
+    return PAf, MPAf, IoUf, PAb, MPAb, IoUb, PA, MPA, IoU
 
 
 if __name__ == '__main__':
@@ -131,6 +146,6 @@ if __name__ == '__main__':
 
     gt = th.tensor(s)
     pre = th.tensor([p0, p1, p2])
-    PA, MPA, IoU = seg_eval(pre, gt)
+    PAf, MPAf, IoUf, PAb, MPAb, IoUb, PA, MPA, IoU = seg_eval(pre, gt)
     print('PA={}, MPA={}, IoU={}'.format(PA, MPA, IoU))
     print('ok')
