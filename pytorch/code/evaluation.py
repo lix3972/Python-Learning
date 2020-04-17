@@ -343,3 +343,16 @@ if __name__ == '__main__':
     print('back: PAb={}, MPAb={}, IoUb={}'.format(PAb, MPAb, IoUb))
 
     print('ok')
+
+# eval_class = EvalSegmentation()
+# for modelNum in modelNums:
+#     G_A = load_models4test
+#     eval_class.reset()
+#     for i, data in enumerate(data_loader):
+# 	    ... ...
+#         eval_class.seg_eval(fake_B.cpu(), B.cpu(), number_of_classes)
+#     eval_class.avg_eval(modelNum)
+#     message_f, message_b, message_a = eval_class.show_avg_eval(modelNum)
+#     log.log_message(message_f)
+# message_f, message_b, message_a = eval_class.show_sorted_models_eval('class_n = {}'.format(args.class_n))
+# log.log_message(message_f)   
