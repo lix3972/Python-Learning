@@ -344,6 +344,7 @@ if __name__ == '__main__':
 
     print('ok')
 
+# from utils.evaluation import EvalSegmentation
 # eval_class = EvalSegmentation()
 # for modelNum in modelNums:
 #     G_A = load_models4test
