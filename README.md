@@ -39,7 +39,7 @@ https://www.w3cschool.cn/tensorflow_python/tensorflow_python-k14x2nc7.html
 24、PIL.Image与numpy.array之间的相互转换：img = numpy.array(im);img = Image.fromarray(img.astype('uint8')).convert('RGB')    
 25、sorted排序：mseAll.append((modelNumber,mseAB));  sortedMse=sorted(mseAll, key=lambda mse: mse[1])  ;  
 按照'img_'和'.'中间的数值进行排序：self.A_paths = sorted(self.A_paths, key=lambda n: int(n.split('img_')[1].split('.')[0]))   
-26、txt文件创建：f=open('txtName','a');f.write('Hello.\n');f.close();\n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。     
+26、txt文件创建：f=open('txtName','a');f.write('Hello.\n');f.close();\n 表示换行。若：f.write('Hello\nworld'),则Hello与world分两行。'r' 只读模式,'w' 清空文件再重新写入,'a' 在文件末尾写入           
 27、pytroch中的torch.nn:https://blog.csdn.net/dgyuanshaofeng/article/details/80345103  
 28、mat读取方法：  
 29、系统时间： time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())   
