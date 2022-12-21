@@ -8,4 +8,8 @@ def onehot(data, n):
     return buf
 
     
-
+def onehot(data, n=2):
+    buf = np.zeros(data.shape + (n, ))
+    nmsk = np.arange(data.size)*n + 1 - data.ravel()
+    buf.ravel()[nmsk] = 1
+    return buf
